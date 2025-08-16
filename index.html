@@ -67,7 +67,7 @@
       background: #fac5dc;
     }
 
-    .course.completed {
+    .course.completed .course-text {
       text-decoration: line-through;
       background: #e1ecf7;
       color: #7caff7;
@@ -145,26 +145,26 @@
   <div class="semesters">
     <div class="semester" id="sem1">
       <h2>Semestre I</h2>
-      <div class="course" data-id="eng1">English A1 Breakthrough <span class="info-icon" onclick="openModal('eng1')">💟</span></div>
-      <div class="course" data-id="tel">Atención Telefónica y Mensajería en Alojamientos <span class="info-icon" onclick="openModal('tel')">💟</span></div>
-      <div class="course" data-id="res">Reservación y Recepción en Alojamientos <span class="info-icon" onclick="openModal('res')">💟</span></div>
-      <div class="course" data-id="fact1">Facturación y Caja en Alojamientos I <span class="info-icon" onclick="openModal('fact1')">💟</span></div>
-      <div class="course" data-id="hist">Historia e Identidad Nacional <span class="info-icon" onclick="openModal('hist')">💟</span></div>
-      <div class="course" data-id="orient">Orientación Laboral <span class="info-icon" onclick="openModal('orient')">💟</span></div>
-      <div class="course" data-id="clima">Adaptación al Cambio Climático <span class="info-icon" onclick="openModal('clima')">💟</span></div>
+      <div class="course" data-id="eng1"><span class="course-text">English A1 Breakthrough <span class="info-icon" onclick="openModal('eng1')">💟</span></div>
+      <div class="course" data-id="tel"><span class="course-text">Atención Telefónica y Mensajería en Alojamientos <span class="info-icon" onclick="openModal('tel')">💟</span></div>
+      <div class="course" data-id="res"><span class="course-text">Reservación y Recepción en Alojamientos <span class="info-icon" onclick="openModal('res')">💟</span></div>
+      <div class="course" data-id="fact1"><span class="course-text">Facturación y Caja en Alojamientos I <span class="info-icon" onclick="openModal('fact1')">💟</span></div>
+      <div class="course" data-id="hist"><span class="course-text">Historia e Identidad Nacional <span class="info-icon" onclick="openModal('hist')">💟</span></div>
+      <div class="course" data-id="orient"><span class="course-text">Orientación Laboral <span class="info-icon" onclick="openModal('orient')">💟</span></div>
+      <div class="course" data-id="clima"><span class="course-text">Adaptación al Cambio Climático <span class="info-icon" onclick="openModal('clima')">💟</span></div>
     </div>
 
     <div class="semester" id="sem2">
       <h2>Semestre II</h2>
-      <div class="course locked" data-id="eng2" data-dependency="eng1">English A2 Waystage <span class="info-icon" onclick="openModal('eng2')">💟</span></div>
-      <div class="course locked" data-id="fact2" data-dependency="fact1">Facturación y Caja en Alojamientos II <span class="info-icon" onclick="openModal('fact2')">💟</span></div>
-      <div class="course locked" data-id="gestion" data-semester="1">Gestión de Departamento en Recepción Hotelera <span class="info-icon" onclick="openModal('gestion')">💟</span></div>
-      <div class="course locked" data-id="sistemas" data-semester="1">Sistemas Operativos y Ofimática <span class="info-icon" onclick="openModal('sistemas')">💟</span></div>
+      <div class="course locked" data-id="eng2" data-dependency="eng1"><span class="course-text">English A2 Waystage <span class="info-icon" onclick="openModal('eng2')">💟</span></div>
+      <div class="course locked" data-id="fact2" data-dependency="fact1"><span class="course-text">Facturación y Caja en Alojamientos II <span class="info-icon" onclick="openModal('fact2')">💟</span></div>
+      <div class="course locked" data-id="gestion" data-semester="1"><span class="course-text">Gestión de Departamento en Recepción Hotelera <span class="info-icon" onclick="openModal('gestion')">💟</span></div>
+      <div class="course locked" data-id="sistemas" data-semester="1"><span class="course-text">Sistemas Operativos y Ofimática <span class="info-icon" onclick="openModal('sistemas')">💟</span></div>
     </div>
 
     <div class="semester" id="practicas">
       <h2>Prácticas Profesionales</h2>
-      <div class="course locked" data-id="practicas" data-semester="2">Prácticas Profesionales <span class="info-icon" onclick="openModal('practicas')">💟</span></div>
+      <div class="course locked" data-id="practicas" data-semester="2"><span class="course-text">Prácticas Profesionales <span class="info-icon" onclick="openModal('practicas')">💟</span></div>
     </div>
   </div>
 
