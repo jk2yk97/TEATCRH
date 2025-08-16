@@ -51,6 +51,9 @@
       transition: background 0.3s;
       border: 1px solid #fa026a;
       user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .course.locked {
@@ -70,6 +73,64 @@
       color: #7caff7;
     }
 
+    .info-icon {
+      margin-left: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #0077b6;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .modal-content input, .modal-content select {
+      width: 100%;
+      padding: 5px;
+      margin-top: 3px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .modal-buttons {
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    .modal-buttons button {
+      padding: 5px 10px;
+      margin-left: 5px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .modal-buttons .cancel-btn { background: #ccc; }
+    .modal-buttons .save-btn { background: #0077b6; color: white; }
+
     @media (max-width: 900px) {
       .semesters {
         flex-direction: column;
@@ -84,34 +145,61 @@
   <div class="semesters">
     <div class="semester" id="sem1">
       <h2>Semestre I</h2>
-      <div class="course" data-id="eng1">English A1 Breakthrough</div>
-      <div class="course" data-id="tel">Atención Telefónica y Mensajería en Alojamientos</div>
-      <div class="course" data-id="res">Reservación y Recepción en Alojamientos</div>
-      <div class="course" data-id="fact1">Facturación y Caja en Alojamientos I</div>
-      <div class="course" data-id="hist">Historia e Identidad Nacional</div>
-      <div class="course" data-id="orient">Orientación Laboral</div>
-      <div class="course" data-id="clima">Adaptación al Cambio Climático</div>
+      <div class="course" data-id="eng1">English A1 Breakthrough <span class="info-icon" onclick="openModal('eng1')">ℹ️</span></div>
+      <div class="course" data-id="tel">Atención Telefónica y Mensajería en Alojamientos <span class="info-icon" onclick="openModal('tel')">ℹ️</span></div>
+      <div class="course" data-id="res">Reservación y Recepción en Alojamientos <span class="info-icon" onclick="openModal('res')">ℹ️</span></div>
+      <div class="course" data-id="fact1">Facturación y Caja en Alojamientos I <span class="info-icon" onclick="openModal('fact1')">ℹ️</span></div>
+      <div class="course" data-id="hist">Historia e Identidad Nacional <span class="info-icon" onclick="openModal('hist')">ℹ️</span></div>
+      <div class="course" data-id="orient">Orientación Laboral <span class="info-icon" onclick="openModal('orient')">ℹ️</span></div>
+      <div class="course" data-id="clima">Adaptación al Cambio Climático <span class="info-icon" onclick="openModal('clima')">ℹ️</span></div>
     </div>
 
     <div class="semester" id="sem2">
       <h2>Semestre II</h2>
-      <div class="course locked" data-id="eng2" data-dependency="eng1">English A2 Waystage</div>
-      <div class="course locked" data-id="fact2" data-dependency="fact1">Facturación y Caja en Alojamientos II</div>
-      <div class="course locked" data-id="gestion" data-semester="1">Gestión de Departamento en Recepción Hotelera</div>
-      <div class="course locked" data-id="sistemas" data-semester="1">Sistemas Operativos y Ofimática</div>
+      <div class="course locked" data-id="eng2" data-dependency="eng1">English A2 Waystage <span class="info-icon" onclick="openModal('eng2')">ℹ️</span></div>
+      <div class="course locked" data-id="fact2" data-dependency="fact1">Facturación y Caja en Alojamientos II <span class="info-icon" onclick="openModal('fact2')">ℹ️</span></div>
+      <div class="course locked" data-id="gestion" data-semester="1">Gestión de Departamento en Recepción Hotelera <span class="info-icon" onclick="openModal('gestion')">ℹ️</span></div>
+      <div class="course locked" data-id="sistemas" data-semester="1">Sistemas Operativos y Ofimática <span class="info-icon" onclick="openModal('sistemas')">ℹ️</span></div>
     </div>
 
     <div class="semester" id="practicas">
       <h2>Prácticas Profesionales</h2>
-      <div class="course locked" data-id="practicas" data-semester="2">Prácticas Profesionales</div>
+      <div class="course locked" data-id="practicas" data-semester="2">Prácticas Profesionales <span class="info-icon" onclick="openModal('practicas')">ℹ️</span></div>
+    </div>
+  </div>
+
+  <div id="courseModal" class="modal">
+    <div class="modal-content">
+      <h2>Información del Curso</h2>
+      <label>Docente:</label>
+      <input type="text" id="modalDocente">
+      <label>Nota Final:</label>
+      <input type="number" id="modalNota" min="0" max="100" step="0.01">
+      <label>Fecha Inicio:</label>
+      <input type="date" id="modalInicio">
+      <label>Fecha Fin:</label>
+      <input type="date" id="modalFin">
+      <label>Estado:</label>
+      <select id="modalEstado">
+        <option>En Curso</option>
+        <option>Aprobado</option>
+        <option>Reprobado</option>
+      </select>
+      <div class="modal-buttons">
+        <button class="cancel-btn" onclick="closeModal()">Cancelar</button>
+        <button class="save-btn" onclick="saveModal()">Guardar</button>
+      </div>
     </div>
   </div>
 
   <script>
     const courses = document.querySelectorAll('.course');
+    let currentCourseId = null;
 
     courses.forEach(course => {
-      course.addEventListener('click', () => {
+      course.addEventListener('click', (e) => {
+        if(e.target.classList.contains('info-icon')) return;
+
         if (course.classList.contains('locked')) {
           alert("Este curso está bloqueado. Revisa los requisitos.");
           return;
@@ -121,6 +209,36 @@
         saveProgress();
       });
     });
+
+    function openModal(courseId) {
+      currentCourseId = courseId;
+      const data = JSON.parse(localStorage.getItem('courseData') || '{}')[courseId] || {};
+      document.getElementById('modalDocente').value = data.docente || '';
+      document.getElementById('modalNota').value = data.nota || '';
+      document.getElementById('modalInicio').value = data.inicio || '';
+      document.getElementById('modalFin').value = data.fin || '';
+      document.getElementById('modalEstado').value = data.estado || 'En Curso';
+      document.getElementById('courseModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('courseModal').style.display = 'none';
+    }
+
+    function saveModal() {
+      const data = {
+        docente: document.getElementById('modalDocente').value,
+        nota: document.getElementById('modalNota').value,
+        inicio: document.getElementById('modalInicio').value,
+        fin: document.getElementById('modalFin').value,
+        estado: document.getElementById('modalEstado').value
+      };
+      const allData = JSON.parse(localStorage.getItem('courseData') || '{}');
+      allData[currentCourseId] = data;
+      localStorage.setItem('courseData', JSON.stringify(allData));
+      closeModal();
+      alert("Datos guardados!");
+    }
 
     function checkUnlocks() {
       document.querySelectorAll('[data-dependency]').forEach(course => {
@@ -174,6 +292,7 @@
       });
       localStorage.setItem('mallaProgress', JSON.stringify(progress));
     }
+
     function loadProgress() {
       const saved = JSON.parse(localStorage.getItem('mallaProgress'));
       if (!saved) return;
