@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <meta charset="UTF-8">
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
   <style>
@@ -137,6 +138,30 @@
         flex-direction: column;
         align-items: center;
       }
+      
+.flatpickr-calendar {
+  background-color: white;
+  color: #fa026a;
+  border-radius: 10px;
+}
+
+.flatpickr-day {
+  color: #fa026a;
+}
+
+.flatpickr-day.selected, 
+.flatpickr-day:hover {
+  background-color: #f77cb3;
+  color: #fa026a;
+}
+
+.flatpickr-prev-month, .flatpickr-next-month {
+  color: #fa026a;
+}
+
+.flatpickr-weekday {
+  color: #fa026a;
+}
     }
   </style>
 </head>
@@ -213,9 +238,9 @@
       <label>Nota Final:</label>
       <input type="number" id="modalNota" min="0" max="100" step="0.01">
       <label>Fecha Inicio:</label>
-      <input type="date" id="modalInicio">
+      <input type="text" id="modalInicio" class="datepicker">
       <label>Fecha Fin:</label>
-      <input type="date" id="modalFin">
+      <input type="text" id="modalFin" class="datepicker">
       <label>Estado:</label>
       <select id="modalEstado">
         <option>En Curso</option>
@@ -228,7 +253,8 @@
       </div>
     </div>
   </div>
-
+  
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
     const courses = document.querySelectorAll('.course');
     let currentCourseId = null;
@@ -347,6 +373,10 @@
     }
 
     loadProgress();
+    
+    flatpickr(".datepicker", {
+    dateFormat: "Y-m-d"
+});
   </script>
 </body>
 </html>
