@@ -16,14 +16,22 @@
       text-align: center;
       color: #fc3283;
     }
+    
+    .semesters {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      gap: 20px;
+      margin-top: 20px;
+    }
 
     .semester {
+      flex: 1;
+      max-width:300px;
       background: white;
       border: 2px solid #fc3283;
       border-radius: 15px;
       padding: 20px;
-      margin: 20px auto;
-      width: 80%;
       box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
     }
 
@@ -58,12 +66,18 @@
       background: #dfeaf7;
       color: #555;
     }
+    @media (max-width: 900px) {
+  .semesters {
+    flex-direction: column;
+    align-items: center;
+  }
+}
   </style>
 </head>
 <body>
   <h1>Técnico Especialista en Atención al Cliente y Recepción Hotelera</h1>
-
-  <div class="semester" id="sem1">
+<div class="semesters">
+  <div class="semester" id="sem1"></div>
     <h2>Semestre I</h2>
     <div class="course" data-id="eng1">English A1 Breakthrough</div>
     <div class="course" data-id="tel">Atención Telefónica y Mensajería en Alojamientos</div>
@@ -74,7 +88,7 @@
     <div class="course" data-id="clima">Adaptación al Cambio Climático</div>
   </div>
 
-  <div class="semester" id="sem2">
+  <div class="semester" id="sem2"></div>
     <h2>Semestre II</h2>
     <div class="course locked" data-id="eng2" data-dependency="eng1">English A2 Waystage</div>
     <div class="course locked" data-id="fact2" data-dependency="fact1">Facturación y Caja en Alojamientos II</div>
@@ -82,7 +96,7 @@
     <div class="course locked" data-id="sistemas" data-semester="1">Sistemas Operativos y Ofimática</div>
   </div>
   
-  <div class="semester" id="practicas">
+  <div class="semester" id="practicas"></div>
     <h2>Prácticas Profesionales</h2>
     <div class="course locked" data-id="practicas" data-semester="2">Prácticas Profesionales</div>
   </div>
