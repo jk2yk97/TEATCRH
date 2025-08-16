@@ -111,6 +111,7 @@
         course.classList.add('locked');
         course.classList.remove('completed');
       }
+      course.onselectstart = () => false;
     });
 
     const sem1Courses = document.querySelectorAll('#sem1 .course');
