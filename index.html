@@ -54,7 +54,7 @@
 
     .course.completed {
       text-decoration: line-through;
-      background: #cce4ff;
+      background: #dfeaf7;
       color: #555;
     }
   </style>
@@ -86,58 +86,89 @@
     <div class="course locked" data-id="practicas" data-semester="2">Prácticas Profesionales</div>
   </div>
 
-  <script>
-    const courses = document.querySelectorAll('.course');
-    courses.forEach(course => {
-      course.addEventListener('click', () => {
-        if (course.classList.contains('locked')) {
-          alert("Este curso está bloqueado. Revisa los requisitos.");
-          return;
-        }
-        course.classList.toggle('completed');
-        checkUnlocks();
-      });
+<script>
+  const courses = document.querySelectorAll('.course');
+  courses.forEach(course => {
+    course.addEventListener('click', () => {
+      if (course.classList.contains('locked')) {
+        alert("Este curso está bloqueado. Revisa los requisitos.");
+        return;
+      }
+      course.classList.toggle('completed');
+      checkUnlocks();
+      saveProgress();
+    });
+  });
+
+  function checkUnlocks() {
+    document.querySelectorAll('[data-dependency]').forEach(course => {
+      const dependencyId = course.getAttribute('data-dependency');
+      const dependency = document.querySelector(`[data-id="${dependencyId}"]`);
+      if (dependency.classList.contains('completed')) {
+        course.classList.remove('locked');
+      } else {
+        course.classList.add('locked');
+        course.classList.remove('completed');
+      }
     });
 
-    function checkUnlocks() {
-      document.querySelectorAll('[data-dependency]').forEach(course => {
-        const dependencyId = course.getAttribute('data-dependency');
-        const dependency = document.querySelector(`[data-id="${dependencyId}"]`);
-        if (dependency.classList.contains('completed')) {
-          course.classList.remove('locked');
-        } else {
-          course.classList.add('locked');
-          course.classList.remove('completed');
+    const sem1Courses = document.querySelectorAll('#sem1 .course');
+    const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
+    const sem2Courses = document.querySelectorAll('#sem2 .course');
+    if (allSem1Completed) {
+      sem2Courses.forEach(c => {
+        if (!c.hasAttribute('data-dependency')) c.classList.remove('locked');
+      });
+    } else {
+      sem2Courses.forEach(c => {
+        if (!c.hasAttribute('data-dependency')) {
+          c.classList.add('locked');
+          c.classList.remove('completed');
         }
       });
-
-      const sem1Courses = document.querySelectorAll('#sem1 .course');
-      const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
-      const sem2Courses = document.querySelectorAll('#sem2 .course');
-      if (allSem1Completed) {
-        sem2Courses.forEach(c => {
-          if (!c.hasAttribute('data-dependency')) c.classList.remove('locked');
-        });
-      } else {
-        sem2Courses.forEach(c => {
-          if (!c.hasAttribute('data-dependency')) {
-            c.classList.add('locked');
-            c.classList.remove('completed');
-          }
-        });
-      }
-
-      const allCourses = document.querySelectorAll('.course');
-      const allButPracticas = Array.from(allCourses).filter(c => c.getAttribute('data-id') !== 'practicas');
-      const allCompleted = allButPracticas.every(c => c.classList.contains('completed'));
-      const practicas = document.querySelector('[data-id="practicas"]');
-      if (allCompleted) {
-        practicas.classList.remove('locked');
-      } else {
-        practicas.classList.add('locked');
-        practicas.classList.remove('completed');
-      }
     }
-  </script>
+
+    const allCourses = document.querySelectorAll('.course');
+    const allButPracticas = Array.from(allCourses).filter(c => c.getAttribute('data-id') !== 'practicas');
+    const allCompleted = allButPracticas.every(c => c.classList.contains('completed'));
+    const practicas = document.querySelector('[data-id="practicas"]');
+    if (allCompleted) {
+      practicas.classList.remove('locked');
+    } else {
+      practicas.classList.add('locked');
+      practicas.classList.remove('completed');
+    }
+
+    saveProgress();
+  }
+
+  function saveProgress() {
+    const progress = {};
+    document.querySelectorAll('.course').forEach(c => {
+      progress[c.getAttribute('data-id')] = {
+        completed: c.classList.contains('completed'),
+        locked: c.classList.contains('locked')
+      };
+    });
+    localStorage.setItem('mallaProgress', JSON.stringify(progress));
+  }
+
+  function loadProgress() {
+    const saved = JSON.parse(localStorage.getItem('mallaProgress'));
+    if (!saved) return;
+    document.querySelectorAll('.course').forEach(c => {
+      const id = c.getAttribute('data-id');
+      if (saved[id]) {
+        if (saved[id].completed) c.classList.add('completed');
+        else c.classList.remove('completed');
+
+        if (saved[id].locked) c.classList.add('locked');
+        else c.classList.remove('locked');
+      }
+    });
+    checkUnlocks();
+  }
+  loadProgress();
+</script>
 </body>
 </html>
