@@ -145,26 +145,26 @@
   <div class="semesters">
     <div class="semester" id="sem1">
       <h2>Semestre I</h2>
-      <div class="course" data-id="eng1">English A1 Breakthrough <span class="info-icon" onclick="openModal('eng1')">ℹ️</span></div>
-      <div class="course" data-id="tel">Atención Telefónica y Mensajería en Alojamientos <span class="info-icon" onclick="openModal('tel')">ℹ️</span></div>
-      <div class="course" data-id="res">Reservación y Recepción en Alojamientos <span class="info-icon" onclick="openModal('res')">ℹ️</span></div>
-      <div class="course" data-id="fact1">Facturación y Caja en Alojamientos I <span class="info-icon" onclick="openModal('fact1')">ℹ️</span></div>
-      <div class="course" data-id="hist">Historia e Identidad Nacional <span class="info-icon" onclick="openModal('hist')">ℹ️</span></div>
-      <div class="course" data-id="orient">Orientación Laboral <span class="info-icon" onclick="openModal('orient')">ℹ️</span></div>
-      <div class="course" data-id="clima">Adaptación al Cambio Climático <span class="info-icon" onclick="openModal('clima')">ℹ️</span></div>
+      <div class="course" data-id="eng1">English A1 Breakthrough <span class="info-icon" onclick="openModal('eng1')">💟</span></div>
+      <div class="course" data-id="tel">Atención Telefónica y Mensajería en Alojamientos <span class="info-icon" onclick="openModal('tel')">💟</span></div>
+      <div class="course" data-id="res">Reservación y Recepción en Alojamientos <span class="info-icon" onclick="openModal('res')">💟</span></div>
+      <div class="course" data-id="fact1">Facturación y Caja en Alojamientos I <span class="info-icon" onclick="openModal('fact1')">💟</span></div>
+      <div class="course" data-id="hist">Historia e Identidad Nacional <span class="info-icon" onclick="openModal('hist')">💟</span></div>
+      <div class="course" data-id="orient">Orientación Laboral <span class="info-icon" onclick="openModal('orient')">💟</span></div>
+      <div class="course" data-id="clima">Adaptación al Cambio Climático <span class="info-icon" onclick="openModal('clima')">💟</span></div>
     </div>
 
     <div class="semester" id="sem2">
       <h2>Semestre II</h2>
-      <div class="course locked" data-id="eng2" data-dependency="eng1">English A2 Waystage <span class="info-icon" onclick="openModal('eng2')">ℹ️</span></div>
-      <div class="course locked" data-id="fact2" data-dependency="fact1">Facturación y Caja en Alojamientos II <span class="info-icon" onclick="openModal('fact2')">ℹ️</span></div>
-      <div class="course locked" data-id="gestion" data-semester="1">Gestión de Departamento en Recepción Hotelera <span class="info-icon" onclick="openModal('gestion')">ℹ️</span></div>
-      <div class="course locked" data-id="sistemas" data-semester="1">Sistemas Operativos y Ofimática <span class="info-icon" onclick="openModal('sistemas')">ℹ️</span></div>
+      <div class="course locked" data-id="eng2" data-dependency="eng1">English A2 Waystage <span class="info-icon" onclick="openModal('eng2')">💟</span></div>
+      <div class="course locked" data-id="fact2" data-dependency="fact1">Facturación y Caja en Alojamientos II <span class="info-icon" onclick="openModal('fact2')">💟</span></div>
+      <div class="course locked" data-id="gestion" data-semester="1">Gestión de Departamento en Recepción Hotelera <span class="info-icon" onclick="openModal('gestion')">💟</span></div>
+      <div class="course locked" data-id="sistemas" data-semester="1">Sistemas Operativos y Ofimática <span class="info-icon" onclick="openModal('sistemas')">💟</span></div>
     </div>
 
     <div class="semester" id="practicas">
       <h2>Prácticas Profesionales</h2>
-      <div class="course locked" data-id="practicas" data-semester="2">Prácticas Profesionales <span class="info-icon" onclick="openModal('practicas')">ℹ️</span></div>
+      <div class="course locked" data-id="practicas" data-semester="2">Prácticas Profesionales <span class="info-icon" onclick="openModal('practicas')">💟</span></div>
     </div>
   </div>
 
@@ -198,7 +198,7 @@
 
     courses.forEach(course => {
       course.addEventListener('click', (e) => {
-        if(e.target.classList.contains('info-icon')) return;
+        if(e.target.closest('info-icon')) return;
 
         if (course.classList.contains('locked')) {
           alert("Este curso está bloqueado. Revisa los requisitos.");
