@@ -5,7 +5,7 @@
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #ffbdd7;
       margin: 0;
       padding: 20px;
@@ -16,18 +16,20 @@
       text-align: center;
       color: #fc3283;
     }
-    
+
     .semesters {
       display: flex;
       justify-content: space-around;
       align-items: flex-start;
       gap: 20px;
       margin-top: 20px;
+      flex-wrap: wrap;
     }
 
     .semester {
       flex: 1;
-      max-width:300px;
+      min-width: 250px;
+      max-width: 320px;
       background: white;
       border: 2px solid #fc3283;
       border-radius: 15px;
@@ -42,7 +44,7 @@
 
     .course {
       background: #ffe3ef;
-      margin: 8px;
+      margin: 8px 0;
       padding: 12px;
       border-radius: 10px;
       cursor: pointer;
@@ -63,128 +65,131 @@
 
     .course.completed {
       text-decoration: line-through;
-      background: #dfeaf7;
+      background: #d1e7ff;
       color: #555;
     }
+
     @media (max-width: 900px) {
-  .semesters {
-    flex-direction: column;
-    align-items: center;
-  }
-}
+      .semesters {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>Técnico Especialista en Atención al Cliente y Recepción Hotelera</h1>
-<div class="semesters">
-  <div class="semester" id="sem1"></div>
-    <h2>Semestre I</h2>
-    <div class="course" data-id="eng1">English A1 Breakthrough</div>
-    <div class="course" data-id="tel">Atención Telefónica y Mensajería en Alojamientos</div>
-    <div class="course" data-id="res">Reservación y Recepción en Alojamientos</div>
-    <div class="course" data-id="fact1">Facturación y Caja en Alojamientos I</div>
-    <div class="course" data-id="hist">Historia e Identidad Nacional</div>
-    <div class="course" data-id="orient">Orientación Laboral</div>
-    <div class="course" data-id="clima">Adaptación al Cambio Climático</div>
+
+  <div class="semesters">
+    <div class="semester" id="sem1">
+      <h2>Semestre I</h2>
+      <div class="course" data-id="eng1">English A1 Breakthrough</div>
+      <div class="course" data-id="tel">Atención Telefónica y Mensajería en Alojamientos</div>
+      <div class="course" data-id="res">Reservación y Recepción en Alojamientos</div>
+      <div class="course" data-id="fact1">Facturación y Caja en Alojamientos I</div>
+      <div class="course" data-id="hist">Historia e Identidad Nacional</div>
+      <div class="course" data-id="orient">Orientación Laboral</div>
+      <div class="course" data-id="clima">Adaptación al Cambio Climático</div>
+    </div>
+
+    <div class="semester" id="sem2">
+      <h2>Semestre II</h2>
+      <div class="course locked" data-id="eng2" data-dependency="eng1">English A2 Waystage</div>
+      <div class="course locked" data-id="fact2" data-dependency="fact1">Facturación y Caja en Alojamientos II</div>
+      <div class="course locked" data-id="gestion" data-semester="1">Gestión de Departamento en Recepción Hotelera</div>
+      <div class="course locked" data-id="sistemas" data-semester="1">Sistemas Operativos y Ofimática</div>
+    </div>
+
+    <div class="semester" id="practicas">
+      <h2>Prácticas Profesionales</h2>
+      <div class="course locked" data-id="practicas" data-semester="2">Prácticas Profesionales</div>
+    </div>
   </div>
 
-  <div class="semester" id="sem2"></div>
-    <h2>Semestre II</h2>
-    <div class="course locked" data-id="eng2" data-dependency="eng1">English A2 Waystage</div>
-    <div class="course locked" data-id="fact2" data-dependency="fact1">Facturación y Caja en Alojamientos II</div>
-    <div class="course locked" data-id="gestion" data-semester="1">Gestión de Departamento en Recepción Hotelera</div>
-    <div class="course locked" data-id="sistemas" data-semester="1">Sistemas Operativos y Ofimática</div>
-  </div>
-  
-  <div class="semester" id="practicas"></div>
-    <h2>Prácticas Profesionales</h2>
-    <div class="course locked" data-id="practicas" data-semester="2">Prácticas Profesionales</div>
-  </div>
+  <script>
+    const courses = document.querySelectorAll('.course');
 
-<script>
-  const courses = document.querySelectorAll('.course');
-  courses.forEach(course => {
-    course.addEventListener('click', () => {
-      if (course.classList.contains('locked')) {
-        alert("Este curso está bloqueado. Revisa los requisitos.");
-        return;
-      }
-      course.classList.toggle('completed');
-      checkUnlocks();
-      saveProgress();
-    });
-  });
-
-  function checkUnlocks() {
-    document.querySelectorAll('[data-dependency]').forEach(course => {
-      const dependencyId = course.getAttribute('data-dependency');
-      const dependency = document.querySelector(`[data-id="${dependencyId}"]`);
-      if (dependency.classList.contains('completed')) {
-        course.classList.remove('locked');
-      } else {
-        course.classList.add('locked');
-        course.classList.remove('completed');
-      }
-      course.onselectstart = () => false;
-    });
-
-    const sem1Courses = document.querySelectorAll('#sem1 .course');
-    const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
-    const sem2Courses = document.querySelectorAll('#sem2 .course');
-    if (allSem1Completed) {
-      sem2Courses.forEach(c => {
-        if (!c.hasAttribute('data-dependency')) c.classList.remove('locked');
+    courses.forEach(course => {
+      course.addEventListener('click', () => {
+        if (course.classList.contains('locked')) {
+          alert("Este curso está bloqueado. Revisa los requisitos.");
+          return;
+        }
+        course.classList.toggle('completed');
+        checkUnlocks();
+        saveProgress();
       });
-    } else {
-      sem2Courses.forEach(c => {
-        if (!c.hasAttribute('data-dependency')) {
-          c.classList.add('locked');
-          c.classList.remove('completed');
+    });
+
+    function checkUnlocks() {
+      document.querySelectorAll('[data-dependency]').forEach(course => {
+        const dependencyId = course.getAttribute('data-dependency');
+        const dependency = document.querySelector(`[data-id="${dependencyId}"]`);
+        if (dependency.classList.contains('completed')) {
+          course.classList.remove('locked');
+        } else {
+          course.classList.add('locked');
+          course.classList.remove('completed');
         }
       });
-    }
 
-    const allCourses = document.querySelectorAll('.course');
-    const allButPracticas = Array.from(allCourses).filter(c => c.getAttribute('data-id') !== 'practicas');
-    const allCompleted = allButPracticas.every(c => c.classList.contains('completed'));
-    const practicas = document.querySelector('[data-id="practicas"]');
-    if (allCompleted) {
-      practicas.classList.remove('locked');
-    } else {
-      practicas.classList.add('locked');
-      practicas.classList.remove('completed');
-    }
-
-    saveProgress();
-  }
-
-  function saveProgress() {
-    const progress = {};
-    document.querySelectorAll('.course').forEach(c => {
-      progress[c.getAttribute('data-id')] = {
-        completed: c.classList.contains('completed'),
-        locked: c.classList.contains('locked')
-      };
-    });
-    localStorage.setItem('mallaProgress', JSON.stringify(progress));
-  }
-
-  function loadProgress() {
-    const saved = JSON.parse(localStorage.getItem('mallaProgress'));
-    if (!saved) return;
-    document.querySelectorAll('.course').forEach(c => {
-      const id = c.getAttribute('data-id');
-      if (saved[id]) {
-        if (saved[id].completed) c.classList.add('completed');
-        else c.classList.remove('completed');
-
-        if (saved[id].locked) c.classList.add('locked');
-        else c.classList.remove('locked');
+      const sem1Courses = document.querySelectorAll('#sem1 .course');
+      const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
+      const sem2Courses = document.querySelectorAll('#sem2 .course');
+      if (allSem1Completed) {
+        sem2Courses.forEach(c => {
+          if (!c.hasAttribute('data-dependency')) c.classList.remove('locked');
+        });
+      } else {
+        sem2Courses.forEach(c => {
+          if (!c.hasAttribute('data-dependency')) {
+            c.classList.add('locked');
+            c.classList.remove('completed');
+          }
+        });
       }
-    });
-    checkUnlocks();
-  }
-  loadProgress();
-</script>
+
+      const allCourses = document.querySelectorAll('.course');
+      const allButPracticas = Array.from(allCourses).filter(c => c.getAttribute('data-id') !== 'practicas');
+      const allCompleted = allButPracticas.every(c => c.classList.contains('completed'));
+      const practicas = document.querySelector('[data-id="practicas"]');
+      if (allCompleted) {
+        practicas.classList.remove('locked');
+      } else {
+        practicas.classList.add('locked');
+        practicas.classList.remove('completed');
+      }
+
+      saveProgress();
+    }
+
+    function saveProgress() {
+      const progress = {};
+      document.querySelectorAll('.course').forEach(c => {
+        progress[c.getAttribute('data-id')] = {
+          completed: c.classList.contains('completed'),
+          locked: c.classList.contains('locked')
+        };
+      });
+      localStorage.setItem('mallaProgress', JSON.stringify(progress));
+    }
+    function loadProgress() {
+      const saved = JSON.parse(localStorage.getItem('mallaProgress'));
+      if (!saved) return;
+      document.querySelectorAll('.course').forEach(c => {
+        const id = c.getAttribute('data-id');
+        if (saved[id]) {
+          if (saved[id].completed) c.classList.add('completed');
+          else c.classList.remove('completed');
+
+          if (saved[id].locked) c.classList.add('locked');
+          else c.classList.remove('locked');
+        }
+      });
+      checkUnlocks();
+    }
+
+    loadProgress();
+  </script>
 </body>
 </html>
