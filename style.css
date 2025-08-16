@@ -1,0 +1,80 @@
+:root {
+  --bg-pastel: #ffbdd7;
+  --text-strong: #fc3283;
+  --text-dark: #8a2d5e;
+}
+
+body {
+  background-color: var(--bg-pastel);
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 20px;
+  color: var(--text-dark);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  color: var(--text-strong);
+  text-align: center;
+}
+
+h1 {
+  border-bottom: 2px solid var(--text-strong);
+  padding-bottom: 10px;
+}
+
+.semestre {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.materia {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.materia:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.materia h3 {
+  margin-top: 0;
+  color: var(--text-strong);
+}
+
+button {
+  background-color: var(--text-strong);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #d62a6f;
+}
+
+.aprobada {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.bloqueada {
+  opacity: 0.5;
+  pointer-events: none;
+  background-color: #f0f0f0;
+}
