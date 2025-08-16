@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <meta charset="UTF-8">
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -70,7 +71,8 @@
 
     .course.completed {
       background: #e1ecf7;
-   }
+    }
+
     .course.completed .course-text {
       text-decoration: line-through;
       color: #7caff7;
@@ -81,7 +83,6 @@
       cursor: pointer;
       font-weight: bold;
       color: #0077b6;
-      font-size: 1.2em;
     }
 
     .modal {
@@ -118,6 +119,7 @@
       border-radius: 5px;
       border: 1px solid #ccc;
       box-sizing: border-box;
+      font-size: 14px;
     }
 
     .modal-buttons {
@@ -136,35 +138,31 @@
     .modal-buttons .cancel-btn { background: #ccc; }
     .modal-buttons .save-btn { background: #0077b6; color: white; }
 
+    .flatpickr-calendar {
+      background-color: #fa026a;
+      color: white;
+      border-radius: 10px;
+    }
+    .flatpickr-day {
+      color: white;
+    }
+    .flatpickr-day.selected,
+    .flatpickr-day:hover {
+      background-color: #7caff7;
+      color: white;
+    }
+    .flatpickr-prev-month, .flatpickr-next-month {
+      color: white;
+    }
+    .flatpickr-weekday {
+      color: white;
+    }
+
     @media (max-width: 900px) {
       .semesters {
         flex-direction: column;
         align-items: center;
       }
-      
-.flatpickr-calendar {
-  background-color: white;
-  color: #fa026a;
-  border-radius: 10px;
-}
-
-.flatpickr-day {
-  color: #fa026a;
-}
-
-.flatpickr-day.selected, 
-.flatpickr-day:hover {
-  background-color: #f77cb3;
-  color: #fa026a;
-}
-
-.flatpickr-prev-month, .flatpickr-next-month {
-  color: #fa026a;
-}
-
-.flatpickr-weekday {
-  color: #fa026a;
-}
     }
   </style>
 </head>
@@ -256,9 +254,9 @@
       </div>
     </div>
   </div>
-  
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
   <script>
     const courses = document.querySelectorAll('.course');
     let currentCourseId = null;
@@ -377,12 +375,13 @@
     }
 
     loadProgress();
-    
-    flatpickr(".datepicker", {
-    dateFormat: "Y-m-d"
-    locale: "es"
 
-});
+    flatpickr(".datepicker", {
+      "locale": "es",
+      dateFormat: "Y-m-d",
+      wrap: false,
+      allowInput: true
+    });
   </script>
 </body>
 </html>
