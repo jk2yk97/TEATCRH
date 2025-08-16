@@ -6,15 +6,15 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #ffbdd7;
+      background-color: #fcdce9;
       margin: 0;
       padding: 20px;
-      color: #333;
+      color: #ff005d;
     }
 
     h1 {
       text-align: center;
-      color: #fc3283;
+      color: #ff005d;
     }
 
     .semesters {
@@ -31,7 +31,7 @@
       min-width: 250px;
       max-width: 320px;
       background: white;
-      border: 2px solid #fc3283;
+      border: 2px solid #ff005d;
       border-radius: 15px;
       padding: 20px;
       box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
@@ -39,7 +39,7 @@
 
     .semester h2 {
       text-align: center;
-      color: #fc3283;
+      color: #ff005d;
     }
 
     .course {
@@ -49,24 +49,25 @@
       border-radius: 10px;
       cursor: pointer;
       transition: background 0.3s;
-      border: 1px solid #fc3283;
+      border: 1px solid #ff005d;
       user-select: none;
     }
 
     .course.locked {
-      background: #f5c5d4;
-      color: #999;
+      background: #ffe3ef;
+      color:  #ff005d;
       cursor: not-allowed;
+      opacity: 0.5;
     }
 
     .course:hover:not(.locked) {
-      background: #ffd6e8;
+      background: #fac5dc;
     }
 
     .course.completed {
       text-decoration: line-through;
-      background: #d1e7ff;
-      color: #555;
+      background: #e1ecf7;
+      color: #bedaf7;
     }
 
     @media (max-width: 900px) {
