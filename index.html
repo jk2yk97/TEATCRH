@@ -22,15 +22,16 @@
     .semesters {
       display: flex;
       justify-content: space-around;
-      align-items: flex-start;
+      align-items: center;
       gap: 20px;
       margin-top: 20px;
       flex-wrap: wrap;
+      flex-direction: column;
     }
 
     .semester {
       flex: 1;
-      min-width: 250px;
+      min-width: 320px;
       max-width: 320px;
       background: #fcdce9;
       border: 2px solid #fa026a;
@@ -63,6 +64,7 @@
       color:  #fa026a;
       cursor: not-allowed;
       opacity: 0.4;
+      pointer-events: none;
     }
 
     .course:hover:not(.locked) {
@@ -275,16 +277,21 @@
       });
     });
 
-    function openModal(courseId) {
-      currentCourseId = courseId;
-      const data = JSON.parse(localStorage.getItem('courseData') || '{}')[courseId] || {};
-      document.getElementById('modalDocente').value = data.docente || '';
-      document.getElementById('modalNota').value = data.nota || '';
-      document.getElementById('modalInicio').value = data.inicio || '';
-      document.getElementById('modalFin').value = data.fin || '';
-      document.getElementById('modalEstado').value = data.estado || 'En Curso';
-      document.getElementById('courseModal').style.display = 'flex';
-    }
+   function openModal(courseId) {
+  const course = document.querySelector(`[data-id="${courseId}"]`);
+  if (course.classList.contains("locked")) {
+    return;
+  }
+
+  currentCourseId = courseId;
+  const data = JSON.parse(localStorage.getItem('courseData') || '{}')[courseId] || {};
+  document.getElementById('modalDocente').value = data.docente || '';
+  document.getElementById('modalNota').value = data.nota || '';
+  document.getElementById('modalInicio').value = data.inicio || '';
+  document.getElementById('modalFin').value = data.fin || '';
+  document.getElementById('modalEstado').value = data.estado || 'En Curso';
+  document.getElementById('courseModal').style.display = 'flex';
+}
 
     function closeModal() {
       document.getElementById('courseModal').style.display = 'none';
@@ -305,6 +312,14 @@
       alert("Datos guardados!");
     }
 
+     document.querySelectorAll('.info-btn').forEach(btn => {
+     btn.addEventListener('click', (e) => {
+     e.stopPropagation();
+     const course = e.target.closest('.course');
+     if (course.classList.contains('locked')) return;
+     openModal(course);
+    });
+});
     function checkUnlocks() {
       document.querySelectorAll('[data-dependency]').forEach(course => {
         const dependencyId = course.getAttribute('data-dependency');
