@@ -2,15 +2,12 @@
 <html lang="es">
 <head>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js">
   <style>
     body {
       font-family: "Fredoka", sans-serif;
@@ -20,15 +17,12 @@
       padding: 20px;
       color: #fa026a;
     }
-
     h1 {
       font-family: "Caprasimo", serif;
       font-weight: 400;
-      font-style: normal;
       text-align: center;
       color: #fa026a;
     }
-
     .semesters {
       display: flex;
       justify-content: center;
@@ -37,10 +31,9 @@
       margin-top: 20px;
       flex-wrap: wrap;
     }
-
     .semester {
       flex: 1 1 280px;
-      min-width: 320pxpx;
+      min-width: 320px;
       max-width: 320px;
       background: #fcdce9;
       border: 2px solid #fa026a;
@@ -48,14 +41,12 @@
       padding: 20px;
       box-shadow: 2px 4px 10px rgba(0,0,0,0.1);
     }
-
     .semester h2 {
       text-align: center;
       color: #fa026a;
       font-family: "Fredoka", sans-serif;
       font-weight: 800;
     }
-
     .course {
       background: #ffe3ef;
       margin: 8px 0;
@@ -69,7 +60,6 @@
       justify-content: space-between;
       align-items: center;
     }
-
     .course.locked {
       background: #ffe3ef;
       color:  #fa026a;
@@ -77,27 +67,27 @@
       opacity: 0.4;
       pointer-events: none;
     }
-
     .course:hover:not(.locked) {
       background: #fac5dc;
     }
-
     .course.completed {
-      background: #e1ecf7;
+      background-color: #ffe3ef;
     }
-
     .course.completed .course-text {
+      color: #ffa1ca;
       text-decoration: line-through;
-      color: #7caff7;
+      text-decoration-style: wavy;
+      text-decoration-thickness: 0.2rem;
+      text-decoration-color: #fa026a;
     }
-
+    .course.completed .info-icon {
+      opacity: 0.2;
+    }
     .info-icon {
       margin-left: 10px;
       cursor: pointer;
       font-weight: bold;
-      color: #0077b6;
     }
-
     .modal {
       display: none;
       position: fixed;
@@ -113,7 +103,6 @@
       font-family: "Fredoka", sans-serif;
       font-weight: 600;
     }
-
     .modal-content {
       background-color: white;
       padding: 20px;
@@ -121,12 +110,10 @@
       max-width: 400px;
       width: 90%;
     }
-
     .modal-content label {
       display: block;
       margin-top: 10px;
     }
-
     .modal-content input, .modal-content select {
       width: 100%;
       padding: 5px 8px;
@@ -138,12 +125,10 @@
       font-weight: 600;
       color: #f73486;
     }
-
     .modal-buttons {
       margin-top: 15px;
       text-align: right;
     }
-
     .modal-buttons button {
       padding: 5px 10px;
       margin-left: 5px;
@@ -151,9 +136,8 @@
       border: none;
       cursor: pointer;
     }
-
-    .modal-buttons .cancel-btn { background: #fcdce9; font-family: "Fredoka", sans-serif; font-weight: 600; color: #fa026a}
-    .modal-buttons .save-btn { background: #fa026a; color: white; font-family: "Fredoka", sans-serif; font-weight: 600; }
+    .modal-buttons .cancel-btn { background: #fcdce9; color: #fa026a;}
+    .modal-buttons .save-btn { background: #fa026a; color: white; }
 
     .flatpickr-calendar {
       background-color: white;
@@ -174,7 +158,6 @@
     .flatpickr-weekday {
       color: #fa026a;
     }
-
     @media (max-width: 900px) {
       .semesters {
         flex-direction: column;
@@ -281,32 +264,23 @@
     courses.forEach(course => {
       course.addEventListener('click', (e) => {
         if(e.target.closest('.info-icon')) return;
-
-        if (course.classList.contains('locked')) {
-          alert("Este curso está bloqueado. Revisa los requisitos.");
-          return;
-        }
+        if(course.classList.contains('locked')) return;
         course.classList.toggle('completed');
         checkUnlocks();
         saveProgress();
       });
     });
 
-   function openModal(courseId) {
-  const course = document.querySelector(`[data-id="${courseId}"]`);
-  if (course.classList.contains("locked")) {
-    return;
-  }
-
-  currentCourseId = courseId;
-  const data = JSON.parse(localStorage.getItem('courseData') || '{}')[courseId] || {};
-  document.getElementById('modalDocente').value = data.docente || '';
-  document.getElementById('modalNota').value = data.nota || '';
-  document.getElementById('modalInicio').value = data.inicio || '';
-  document.getElementById('modalFin').value = data.fin || '';
-  document.getElementById('modalEstado').value = data.estado || 'En Curso';
-  document.getElementById('courseModal').style.display = 'flex';
-}
+    function openModal(courseId) {
+      currentCourseId = courseId;
+      const data = JSON.parse(localStorage.getItem('courseData') || '{}')[courseId] || {};
+      document.getElementById('modalDocente').value = data.docente || '';
+      document.getElementById('modalNota').value = data.nota || '';
+      document.getElementById('modalInicio').value = data.inicio || '';
+      document.getElementById('modalFin').value = data.fin || '';
+      document.getElementById('modalEstado').value = data.estado || 'En Curso';
+      document.getElementById('courseModal').style.display = 'flex';
+    }
 
     function closeModal() {
       document.getElementById('courseModal').style.display = 'none';
@@ -327,14 +301,6 @@
       alert("Datos guardados!");
     }
 
-     document.querySelectorAll('.info-btn').forEach(btn => {
-     btn.addEventListener('click', (e) => {
-     e.stopPropagation();
-     const course = e.target.closest('.course');
-     if (course.classList.contains('locked')) return;
-     openModal(course);
-    });
-});
     function checkUnlocks() {
       document.querySelectorAll('[data-dependency]').forEach(course => {
         const dependencyId = course.getAttribute('data-dependency');
@@ -373,17 +339,12 @@
         practicas.classList.add('locked');
         practicas.classList.remove('completed');
       }
-
-      saveProgress();
     }
 
     function saveProgress() {
       const progress = {};
       document.querySelectorAll('.course').forEach(c => {
-        progress[c.getAttribute('data-id')] = {
-          completed: c.classList.contains('completed'),
-          locked: c.classList.contains('locked')
-        };
+        progress[c.getAttribute('data-id')] = { completed: c.classList.contains('completed'), locked: c.classList.contains('locked') };
       });
       localStorage.setItem('mallaProgress', JSON.stringify(progress));
     }
@@ -393,13 +354,10 @@
       if (!saved) return;
       document.querySelectorAll('.course').forEach(c => {
         const id = c.getAttribute('data-id');
-        if (saved[id]) {
-          if (saved[id].completed) c.classList.add('completed');
-          else c.classList.remove('completed');
-
-          if (saved[id].locked) c.classList.add('locked');
-          else c.classList.remove('locked');
-        }
+        if (saved[id]?.completed) c.classList.add('completed');
+        if (!saved[id]?.completed) c.classList.remove('completed');
+        if (saved[id]?.locked) c.classList.add('locked');
+        if (!saved[id]?.locked) c.classList.remove('locked');
       });
       checkUnlocks();
     }
@@ -407,7 +365,7 @@
     loadProgress();
 
     flatpickr(".datepicker", {
-      "locale": "es",
+      locale: "es",
       dateFormat: "d-m-Y",
       wrap: false,
       allowInput: true
