@@ -370,65 +370,69 @@
       alert("Datos guardados");
     }
 
-    function checkUnlocks() {
-      document.querySelectorAll('[data-dependency]').forEach(course => {
-        const dependencyId = course.getAttribute('data-dependency');
-        const dependency = document.querySelector(`[data-id="${dependencyId}"]`);
-        if (dependency.classList.contains('completed')) {
-          course.classList.remove('locked');
-        } else {
-          course.classList.add('locked');
-          course.classList.remove('completed');
-        }
-      });
-
-      const sem1Courses = document.querySelectorAll('#sem1 .course');
-      const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
-      const sem2Courses = document.querySelectorAll('#sem2 .course');
-      const optativosCourses = document.querySelectorAll('#optativos .course');
-
-      if (allSem1Completed) {
-        sem2Courses.forEach(c => {
-          if (!c.hasAttribute('data-dependency')) c.classList.remove('locked');
-        });
-        optativosCourses.forEach(c => {
-          c.classList.remove('locked');
-        });
-      } else {
-        sem2Courses.forEach(c => {
-          if (!c.hasAttribute('data-dependency')) {
-            c.classList.add('locked');
-            c.classList.remove('completed');
-          }
-        });
-
-        optativosCourses.forEach(c => {
-          c.classList.add('locked');
-          c.classList.remove('completed');
-          const infoIcon = c.querySelector('.info-icon');
-          c.style.opacity = '1';
-          c.style.pointerEvents = 'auto';
-          c.style.color = '';
-          c.style.background = '';
-          c.style.borderColor = '';
-          if (infoIcon) {
-            infoIcon.style.opacity = '1';
-            infoIcon.style.pointerEvents = 'auto';
-          }
-        });
-      }
-
-      const allCourses = document.querySelectorAll('.course');
-      const allButPracticas = Array.from(allCourses).filter(c => c.getAttribute('data-id') !== 'practicas');
-      const allCompleted = allButPracticas.every(c => c.classList.contains('completed'));
-      const practicas = document.querySelector('[data-id="practicas"]');
-      if (allCompleted) {
-        practicas.classList.remove('locked');
-      } else {
-        practicas.classList.add('locked');
-        practicas.classList.remove('completed');
-      }
+function checkUnlocks() {
+  document.querySelectorAll('[data-dependency]').forEach(course => {
+    const dependencyId = course.getAttribute('data-dependency');
+    const dependency = document.querySelector(`[data-id="${dependencyId}"]`);
+    if (dependency.classList.contains('completed')) {
+      course.classList.remove('locked');
+    } else {
+      course.classList.add('locked');
+      course.classList.remove('completed');
     }
+  });
+
+  const sem1Courses = document.querySelectorAll('#sem1 .course');
+  const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
+  const sem2Courses = document.querySelectorAll('#sem2 .course');
+  const optativosCourses = document.querySelectorAll('#optativos .course');
+
+  if (allSem1Completed) {
+
+    sem2Courses.forEach(c => {
+      if (!c.hasAttribute('data-dependency')) c.classList.remove('locked');
+    });
+
+    optativosCourses.forEach(c => {
+      c.classList.remove('locked');
+    });
+  } else {
+
+    sem2Courses.forEach(c => {
+      if (!c.hasAttribute('data-dependency')) {
+        c.classList.add('locked');
+        c.classList.remove('completed');
+      }
+    });
+
+    optativosCourses.forEach(c => {
+      c.classList.add('locked');
+      c.classList.remove('completed');
+
+      const infoIcon = c.querySelector('.info-icon');
+      c.style.opacity = '1';
+      c.style.pointerEvents = 'auto';
+      c.style.color = '';
+      c.style.background = '';
+      c.style.borderColor = '';
+      if (infoIcon) {
+        infoIcon.style.opacity = '1';
+        infoIcon.style.pointerEvents = 'auto';
+      }
+    });
+  }
+
+  const allCourses = document.querySelectorAll('.course');
+  const allButPracticas = Array.from(allCourses).filter(c => c.getAttribute('data-id') !== 'practicas');
+  const allCompleted = allButPracticas.every(c => c.classList.contains('completed'));
+  const practicas = document.querySelector('[data-id="practicas"]');
+  if (allCompleted) {
+    practicas.classList.remove('locked');
+  } else {
+    practicas.classList.add('locked');
+    practicas.classList.remove('completed');
+  }
+}
 
     function saveProgress() {
       const progress = {};
