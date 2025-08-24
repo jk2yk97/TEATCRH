@@ -267,11 +267,12 @@
       <label>Nota Final:</label>
       <input type="number" id="modalNota" min="0" max="100" step="0.01">
       <label>Fecha Inicio:</label>
-      <input type="text" id="modalInicio" class="datepicker">
+      <input type="text" id="modalInicio" class="datepicker" placeholder="Seleccione una fecha">
       <label>Fecha Fin:</label>
-      <input type="text" id="modalFin" class="datepicker">
+      <input type="text" id="modalFin" class="datepicker" placeholder="Seleccione una fecha">
       <label>Estado:</label>
       <select id="modalEstado">
+        <option value="" selected disabled>Seleccione un estado</option>
         <option>En Curso</option>
         <option>Aprobado</option>
         <option>Reprobado</option>
@@ -347,7 +348,7 @@
       document.getElementById('modalNota').value = data.nota || '';
       document.getElementById('modalInicio').value = data.inicio || '';
       document.getElementById('modalFin').value = data.fin || '';
-      document.getElementById('modalEstado').value = data.estado || 'En Curso';
+      document.getElementById('modalEstado').value = data.estado || '';
       document.getElementById('courseModal').style.display = 'flex';
     }
 
@@ -490,7 +491,8 @@
       locale: "es",
       dateFormat: "d-m-Y",
       wrap: false,
-      allowInput: true
+      allowInput: true,
+      placeholder: "Seleccione una fecha"
     });
   </script>
 </body>
