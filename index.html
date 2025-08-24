@@ -166,12 +166,47 @@
       color: #fa026a;
     }
     
+    /* ESTILOS CORREGIDOS PARA LOS PLACEHOLDERS Y SELECT */
+    /* Placeholder para inputs */
     .modal-content input::placeholder {
-      color: #ffa1ca;
+      color: #ff6bac;
+      opacity: 1;
     }
     
+    /* Opción por defecto en select */
     #modalEstado option[value=""][disabled] {
-      color: #ffa1ca;
+      color: #ff6bac;
+      font-family: "Fredoka", sans-serif;
+      font-weight: 600;
+    }
+    
+    /* Opciones del selector */
+    #modalEstado option {
+      font-family: "Fredoka", sans-serif;
+      font-weight: 600;
+      color: #f73486;
+      background-color: white;
+    }
+    
+    /* Estilo para cuando se pasa el mouse por las opciones */
+    #modalEstado option:hover,
+    #modalEstado option:focus,
+    #modalEstado option:active {
+      background-color: #fcdce9 !important;
+      color: #fa026a !important;
+    }
+    
+    /* Eliminar el estilo azul por defecto del navegador */
+    select:focus > option:checked { 
+      background-color: #fcdce9 !important;
+      color: #fa026a !important;
+    }
+    
+    /* Estilo para el selector cuando está abierto */
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
     }
     
     @media (max-width: 900px) {
@@ -201,7 +236,7 @@
           <span class="info-icon" onclick="openModal('tel')">💟</span>
         </div>
         <div class="course" data-id="res">
-          <span class="course-text">Reservación y Recepción en Alojamientos</span>
+          <span class="course-text">Reservación and Recepción en Alojamientos</span>
           <span class="info-icon" onclick="openModal('res')">💟</span>
         </div>
         <div class="course" data-id="fact1">
