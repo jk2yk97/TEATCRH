@@ -165,48 +165,49 @@
     .flatpickr-weekday {
       color: #fa026a;
     }
-    
-    /* ESTILOS CORREGIDOS PARA LOS PLACEHOLDERS Y SELECT */
-    /* Placeholder para inputs */
-    .modal-content input::placeholder {
-      color: #ff6bac;
-      opacity: 1;
+
+    .modal-content input::placeholder,
+    #modalEstado:invalid {
+      color: #ff6bac !important;
+      opacity: 1 !important;
     }
     
-    /* Opción por defecto en select */
     #modalEstado option[value=""][disabled] {
       color: #ff6bac;
       font-family: "Fredoka", sans-serif;
       font-weight: 600;
     }
     
-    /* Opciones del selector */
     #modalEstado option {
       font-family: "Fredoka", sans-serif;
       font-weight: 600;
       color: #f73486;
       background-color: white;
+      padding: 8px;
     }
     
-    /* Estilo para cuando se pasa el mouse por las opciones */
+    #modalEstado option:checked,
     #modalEstado option:hover,
-    #modalEstado option:focus,
-    #modalEstado option:active {
+    #modalEstado option:focus {
+      background: linear-gradient(#fcdce9, #fcdce9);
       background-color: #fcdce9 !important;
       color: #fa026a !important;
     }
     
-    /* Eliminar el estilo azul por defecto del navegador */
-    select:focus > option:checked { 
-      background-color: #fcdce9 !important;
+    #modalEstado:focus option:checked {
+      background: #fcdce9 !important;
       color: #fa026a !important;
     }
     
-    /* Estilo para el selector cuando está abierto */
-    select {
+    #modalEstado {
+      appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
-      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23fa026a" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 16px;
+      padding-right: 30px;
     }
     
     @media (max-width: 900px) {
