@@ -39,6 +39,11 @@
       min-width: 320px;
       max-width: 320px;
     }
+    .semester-container:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
     .semester {
       background: #fcdce9;
       border: 2px solid #fa026a;
@@ -173,6 +178,9 @@
       .semester-container {
         width: 100%;
       }
+      .semester-container:nth-child(2) {
+        justify-content: flex-start;
+      }
     }
   </style>
 </head>
@@ -192,7 +200,7 @@
           <span class="info-icon" onclick="openModal('tel')">💟</span>
         </div>
         <div class="course" data-id="res">
-          <span class="course-text">Reservación y Recepción en Alojamientos</span>
+          <span class="course-text">Reservación and Recepción en Alojamientos</span>
           <span class="info-icon" onclick="openModal('res')">💟</span>
         </div>
         <div class="course" data-id="fact1">
@@ -399,24 +407,23 @@
         if (saved[id]?.locked) c.classList.add('locked');
         if (!saved[id]?.locked) c.classList.remove('locked');
       });
-
       checkUnlocks();
     }
 
-     function equalizeHeights() {
-  const sem1 = document.getElementById('sem1');
-  const container2 = document.querySelector('.semester-container:nth-child(2)');
-  
-  if (sem1 && container2) {
-    container2.style.minHeight = sem1.offsetHeight + 'px';
-  }
-}
-    
-window.addEventListener('load', function() {
-  loadProgress();
-  equalizeHeights();
-});
-window.addEventListener('resize', equalizeHeights);
+    function equalizeHeights() {
+      const sem1 = document.getElementById('sem1');
+      const container2 = document.querySelector('.semester-container:nth-child(2)');
+      
+      if (sem1 && container2) {
+        container2.style.minHeight = sem1.offsetHeight + 'px';
+      }
+    }
+
+    window.addEventListener('load', function() {
+      loadProgress();
+      equalizeHeights();
+    });
+    window.addEventListener('resize', equalizeHeights);
 
     flatpickr(".datepicker", {
       locale: "es",
