@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <style>
+    <style>
     body {
       font-family: "Fredoka", sans-serif;
       font-weight: 600;
@@ -131,6 +131,7 @@
       font-family: "Fredoka", sans-serif;
       font-weight: 600;
       color: #f73486;
+      outline: none;
     }
     .modal-buttons {
       margin-top: 15px;
@@ -145,13 +146,10 @@
     }
     .modal-buttons .cancel-btn { background: #fcdce9; color: #fa026a; font-family: "Fredoka", sans-serif; font-weight: 600;}
     .modal-buttons .save-btn { background: #fa026a; color: white; font-family: "Fredoka", sans-serif; font-weight: 600;}
-
-
     .modal-content input::placeholder {
       color: #ff6bac !important;
       opacity: 1 !important;
     }
-    
     #modalEstado {
       appearance: none;
       -webkit-appearance: none;
@@ -161,14 +159,13 @@
       background-position: right 8px center;
       background-size: 16px;
       padding-right: 30px;
+      outline: none;
     }
-    
     #modalEstado option[value=""][disabled] {
       color: #ff6bac;
       font-family: "Fredoka", sans-serif;
       font-weight: 600;
     }
-    
     #modalEstado option {
       font-family: "Fredoka", sans-serif;
       font-weight: 600;
@@ -176,14 +173,14 @@
       background-color: white;
       padding: 8px;
     }
-    
-    #modalEstado option:checked,
+
     #modalEstado option:hover,
     #modalEstado option:focus {
       background-color: #fcdce9 !important;
       color: #fa026a !important;
+      outline: none;
     }
-    
+
     .flatpickr-calendar {
       background: white;
       color: #fa026a;
@@ -191,19 +188,17 @@
       font-family: "Fredoka", sans-serif;
       box-shadow: 0 3px 13px rgba(0,0,0,0.2);
     }
-    
     .flatpickr-day {
       color: #fa026a;
       font-weight: 600;
       border-radius: 50%;
+      outline: none;
     }
-    
     .flatpickr-day:hover {
       background: #fcdce9 !important;
       border-color: #fcdce9 !important;
       color: #fa026a !important;
     }
-    
     .flatpickr-day.selected, 
     .flatpickr-day.startRange, 
     .flatpickr-day.endRange, 
@@ -219,31 +214,27 @@
       background: #fa026a !important;
       border-color: #fa026a !important;
       color: white !important;
+      outline: none;
     }
-    
     .flatpickr-prev-month, 
     .flatpickr-next-month {
       color: #fa026a;
       fill: #fa026a;
     }
-    
     .flatpickr-prev-month:hover, 
     .flatpickr-next-month:hover {
       color: #ff6bac !important;
       fill: #ff6bac !important;
     }
-    
     .flatpickr-weekday {
       color: #fa026a;
       font-weight: 600;
     }
-    
     .flatpickr-current-month {
       font-family: "Fredoka", sans-serif;
       font-weight: 600;
       color: #fa026a;
     }
-    
     .flatpickr-monthDropdown-month {
       font-family: "Fredoka", sans-serif;
       font-weight: 600;
@@ -252,23 +243,20 @@
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
+      outline: none;
     }
-    
     .flatpickr-monthDropdown-month:hover {
       background: #fcdce9 !important;
       color: #fa026a !important;
     }
-    
     .numInputWrapper:hover {
       background: transparent !important;
     }
-    
     .flatpickr-time input:hover,
     .flatpickr-time .flatpickr-am-pm:hover {
       background: #fcdce9 !important;
       color: #fa026a !important;
     }
-    
     @media (max-width: 900px) {
       .semesters {
         flex-direction: column;
