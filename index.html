@@ -38,6 +38,8 @@
       flex: 1;
       min-width: 320px;
       max-width: 320px;
+      justify-content: space-between;
+      min-height: 800px;
     }
     .semester {
       background: #fcdce9;
@@ -180,7 +182,6 @@
   <h1>Técnico Especialista en Atención al Cliente y Recepción Hotelera</h1>
 
   <div class="semesters">
-    <!-- Columna 1: Semestre I -->
     <div class="semester-container">
       <div class="semester" id="sem1">
         <h2>Semestre I</h2>
@@ -219,7 +220,6 @@
       </div>
     </div>
 
-    <!-- Columna 2: Semestre II + Optativos -->
     <div class="semester-container">
       <div class="semester" id="sem2">
         <h2>Semestre II</h2>
@@ -237,7 +237,6 @@
         </div>
       </div>
       
-      <!-- Optativos debajo del Semestre II -->
       <div class="semester" id="optativos">
         <h2>Optativos</h2>
         <div class="course locked" data-id="paz" data-semester="1">
@@ -251,7 +250,6 @@
       </div>
     </div>
 
-    <!-- Columna 3: Prácticas -->
     <div class="semester-container">
       <div class="semester" id="practicas">
         <h2>Prácticas Profesionales</h2>
@@ -344,6 +342,15 @@
           course.classList.remove('completed');
         }
       });
+
+      function equalizeHeights() {
+  const sem1 = document.getElementById('sem1');
+  const container2 = document.querySelector('.semester-container:nth-child(2)');
+  
+  if (sem1 && container2) {
+    container2.style.minHeight = sem1.offsetHeight + 'px';
+  }
+}
       
       const sem1Courses = document.querySelectorAll('#sem1 .course');
       const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
