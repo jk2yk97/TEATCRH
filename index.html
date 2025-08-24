@@ -147,7 +147,7 @@
     .modal-buttons .save-btn { background: #fa026a; color: white; font-family: "Fredoka", sans-serif; font-weight: 600;}
 
     .flatpickr-calendar {
-      background-color: white;
+      background: white;
       color: #fa026a;
       border-radius: 10px;
     }
@@ -156,7 +156,7 @@
     }
     .flatpickr-day.selected,
     .flatpickr-day:hover {
-      background-color: #fa026a;
+      background: #fa026a;
       color: white;
     }
     .flatpickr-prev-month, .flatpickr-next-month {
@@ -289,14 +289,43 @@
     const courses = document.querySelectorAll('.course');
     let currentCourseId = null;
 
-    courses.forEach(course => {
-      course.addEventListener('click', (e) => {
-        if(e.target.closest('.info-icon')) return;
-        if(course.classList.contains('locked')) return;
-        course.classList.toggle('completed');
-        checkUnlocks();
+    function handleOptativosExclusivos(clickedCourse) {
+        const optativos = document.querySelectorAll('#optativos .course');
+        const clickedId = clickedCourse.getAttribute('data-id');
+        
+        optativos.forEach(course => {
+            if (course.getAttribute('data-id') !== clickedId) {
+                if (clickedCourse.classList.contains('completed')) {
+                    course.style.opacity = '0.3';
+                    course.style.pointerEvents = 'none';
+                    course.style.color = '#fcdce9';
+                    course.style.background = '#fcdce9';
+                    course.style.borderColor = '#fcdce9';
+              } else {
+                    course.style.opacity = '1';
+                    course.style.pointerEvents = 'auto';
+                    course.style.color = '';
+                    course.style.background = '';
+                    course.style.borderColor = '';
+                }
+            }
+        });
         saveProgress();
-      });
+    }
+
+    courses.forEach(course => {
+        course.addEventListener('click', (e) => {
+            if(e.target.closest('.info-icon')) return;
+            if(course.classList.contains('locked')) return;
+            course.classList.toggle('completed');
+            
+            if (course.closest('#optativos')) {
+                handleOptativosExclusivos(course);
+            }
+            
+            checkUnlocks();
+            saveProgress();
+        });
     });
 
     function openModal(courseId) {
@@ -384,7 +413,15 @@
     function saveProgress() {
       const progress = {};
       document.querySelectorAll('.course').forEach(c => {
-        progress[c.getAttribute('data-id')] = { completed: c.classList.contains('completed'), locked: c.classList.contains('locked') };
+        progress[c.getAttribute('data-id')] = { 
+          completed: c.classList.contains('completed'), 
+          locked: c.classList.contains('locked'),
+          opacity: c.style.opacity,
+          pointerEvents: c.style.pointerEvents,
+          color: c.style.color,
+          background: c.style.background,
+          borderColor: c.style.borderColor
+        };
       });
       localStorage.setItem('mallaProgress', JSON.stringify(progress));
     }
@@ -398,7 +435,20 @@
         if (!saved[id]?.completed) c.classList.remove('completed');
         if (saved[id]?.locked) c.classList.add('locked');
         if (!saved[id]?.locked) c.classList.remove('locked');
+        
+        if (saved[id]?.opacity) c.style.opacity = saved[id].opacity;
+        if (saved[id]?.pointerEvents) c.style.pointerEvents = saved[id].pointerEvents;
+        if (saved[id]?.color) c.style.color = saved[id].color;
+        if (saved[id]?.background) c.style.background = saved[id].background;
+        if (saved[id]?.borderColor) c.style.borderColor = saved[id].borderColor;
       });
+
+      const optativos = document.querySelectorAll('#optativos .course');
+      const completedOptativo = Array.from(optativos).find(c => c.classList.contains('completed'));
+      
+      if (completedOptativo) {
+        handleOptativosExclusivos(completedOptativo);
+      }
       
       checkUnlocks();
     }
