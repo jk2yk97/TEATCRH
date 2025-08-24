@@ -340,15 +340,6 @@
           course.classList.remove('completed');
         }
       });
-
-      function equalizeHeights() {
-  const sem1 = document.getElementById('sem1');
-  const container2 = document.querySelector('.semester-container:nth-child(2)');
-  
-  if (sem1 && container2) {
-    container2.style.minHeight = sem1.offsetHeight + 'px';
-  }
-}
       
       const sem1Courses = document.querySelectorAll('#sem1 .course');
       const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
@@ -408,7 +399,17 @@
         if (saved[id]?.locked) c.classList.add('locked');
         if (!saved[id]?.locked) c.classList.remove('locked');
       });
-      
+
+      function equalizeHeights() {
+  const sem1 = document.getElementById('sem1');
+  const container2 = document.querySelector('.semester-container:nth-child(2)');
+  
+  if (sem1 && container2) {
+    container2.style.minHeight = sem1.offsetHeight + 'px';
+  }
+}
+      window.addEventListener('load', equalizeHeights);
+window.addEventListener('resize', equalizeHeights);
       checkUnlocks();
     }
 
