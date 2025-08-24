@@ -400,7 +400,10 @@
         if (!saved[id]?.locked) c.classList.remove('locked');
       });
 
-      function equalizeHeights() {
+      checkUnlocks();
+    }
+
+     function equalizeHeights() {
   const sem1 = document.getElementById('sem1');
   const container2 = document.querySelector('.semester-container:nth-child(2)');
   
@@ -408,12 +411,12 @@
     container2.style.minHeight = sem1.offsetHeight + 'px';
   }
 }
-      window.addEventListener('load', equalizeHeights);
+    
+window.addEventListener('load', function() {
+  loadProgress();
+  equalizeHeights();
+});
 window.addEventListener('resize', equalizeHeights);
-      checkUnlocks();
-    }
-
-    loadProgress();
 
     flatpickr(".datepicker", {
       locale: "es",
