@@ -295,22 +295,31 @@
         
         optativos.forEach(course => {
             if (course.getAttribute('data-id') !== clickedId) {
+                const infoIcon = course.querySelector('.info-icon');
                 if (clickedCourse.classList.contains('completed')) {
+  
                     course.style.opacity = '0.3';
                     course.style.pointerEvents = 'none';
                     course.style.color = '#fcdce9';
                     course.style.background = '#fcdce9';
                     course.style.borderColor = '#fcdce9';
-                  if (infoIcon) {
-                    infoIcon.style.opacity = '0';
-                    infoIcon.style.pointerEvents = 'none';
-                    ]
-              } else {
+
+                    if (infoIcon) {
+                        infoIcon.style.opacity = '0';
+                        infoIcon.style.pointerEvents = 'none';
+                    }
+                } else {
+
                     course.style.opacity = '1';
                     course.style.pointerEvents = 'auto';
                     course.style.color = '';
                     course.style.background = '';
                     course.style.borderColor = '';
+
+                    if (infoIcon) {
+                        infoIcon.style.opacity = '1';
+                        infoIcon.style.pointerEvents = 'auto';
+                    }
                 }
             }
         });
@@ -417,6 +426,7 @@
     function saveProgress() {
       const progress = {};
       document.querySelectorAll('.course').forEach(c => {
+        const infoIcon = c.querySelector('.info-icon');
         progress[c.getAttribute('data-id')] = { 
           completed: c.classList.contains('completed'), 
           locked: c.classList.contains('locked'),
@@ -424,7 +434,9 @@
           pointerEvents: c.style.pointerEvents,
           color: c.style.color,
           background: c.style.background,
-          borderColor: c.style.borderColor
+          borderColor: c.style.borderColor,
+          iconOpacity: infoIcon ? infoIcon.style.opacity : '',
+          iconPointerEvents: infoIcon ? infoIcon.style.pointerEvents : ''
         };
       });
       localStorage.setItem('mallaProgress', JSON.stringify(progress));
@@ -435,6 +447,8 @@
       if (!saved) return;
       document.querySelectorAll('.course').forEach(c => {
         const id = c.getAttribute('data-id');
+        const infoIcon = c.querySelector('.info-icon');
+        
         if (saved[id]?.completed) c.classList.add('completed');
         if (!saved[id]?.completed) c.classList.remove('completed');
         if (saved[id]?.locked) c.classList.add('locked');
@@ -445,8 +459,11 @@
         if (saved[id]?.color) c.style.color = saved[id].color;
         if (saved[id]?.background) c.style.background = saved[id].background;
         if (saved[id]?.borderColor) c.style.borderColor = saved[id].borderColor;
+        
+        if (infoIcon && saved[id]?.iconOpacity) infoIcon.style.opacity = saved[id].iconOpacity;
+        if (infoIcon && saved[id]?.iconPointerEvents) infoIcon.style.pointerEvents = saved[id].iconPointerEvents;
       });
-
+      
       const optativos = document.querySelectorAll('#optativos .course');
       const completedOptativo = Array.from(optativos).find(c => c.classList.contains('completed'));
       
