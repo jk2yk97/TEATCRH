@@ -237,7 +237,6 @@
       
       <div class="semester" id="optativos">
         <h2>Optativos</h2>
-        <!-- OPTATIVOS CON CLASE locked -->
         <div class="course locked" data-id="paz" data-semester="1">
           <span class="course-text">Cultura de Paz</span>
           <span class="info-icon" onclick="openModal('paz')">💟</span>
@@ -298,11 +297,13 @@
             if (course.getAttribute('data-id') !== clickedId) {
                 const infoIcon = course.querySelector('.info-icon');
                 if (clickedCourse.classList.contains('completed')) {
+  
                     course.style.opacity = '0.3';
                     course.style.pointerEvents = 'none';
                     course.style.color = '#fcdce9';
                     course.style.background = '#fcdce9';
                     course.style.borderColor = '#fcdce9';
+
                     if (infoIcon) {
                         infoIcon.style.opacity = '0';
                         infoIcon.style.pointerEvents = 'none';
@@ -313,6 +314,7 @@
                     course.style.color = '';
                     course.style.background = '';
                     course.style.borderColor = '';
+
                     if (infoIcon) {
                         infoIcon.style.opacity = '1';
                         infoIcon.style.pointerEvents = 'auto';
@@ -382,6 +384,7 @@
 
       const sem1Courses = document.querySelectorAll('#sem1 .course');
       const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
+
       const sem2Courses = document.querySelectorAll('#sem2 .course');
       const optativosCourses = document.querySelectorAll('#optativos .course');
 
@@ -402,16 +405,6 @@
         optativosCourses.forEach(c => {
           c.classList.add('locked');
           c.classList.remove('completed');
-          const infoIcon = c.querySelector('.info-icon');
-          c.style.opacity = '1';
-          c.style.pointerEvents = 'auto';
-          c.style.color = '';
-          c.style.background = '';
-          c.style.borderColor = '';
-          if (infoIcon) {
-            infoIcon.style.opacity = '1';
-            infoIcon.style.pointerEvents = 'auto';
-          }
         });
       }
 
@@ -419,6 +412,7 @@
       const allButPracticas = Array.from(allCourses).filter(c => c.getAttribute('data-id') !== 'practicas');
       const allCompleted = allButPracticas.every(c => c.classList.contains('completed'));
       const practicas = document.querySelector('[data-id="practicas"]');
+
       if (allCompleted) {
         practicas.classList.remove('locked');
       } else {
