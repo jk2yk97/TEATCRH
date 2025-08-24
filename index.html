@@ -222,6 +222,18 @@
       </div>
     </div>
 
+    <div class="semester" id="optativos">
+  <h2>Optativos</h2>
+  <div class="course locked" data-id="paz" data-semester="1">
+    <span class="course-text">Cultura de Paz</span>
+    <span class="info-icon" onclick="openModal('paz')">💟</span>
+  </div>
+  <div class="course locked" data-id="identidad" data-semester="1">
+    <span class="course-text">Identidad Cultural</span>
+    <span class="info-icon" onclick="openModal('identidad')">💟</span>
+  </div>
+</div>
+    
     <div class="semester" id="practicas">
       <h2>Prácticas Profesionales</h2>
       <div class="course locked" data-id="practicas" data-semester="2">
@@ -328,6 +340,17 @@
           }
         });
       }
+      const optativosCourses = document.querySelectorAll('#optativos .course');
+      if (allSem1Completed) {
+        optativosCourses.forEach(c => {
+         c.classList.remove('locked');
+       });
+    } else {
+      optativosCourses.forEach(c => {
+      c.classList.add('locked');
+      c.classList.remove('completed');
+    });
+  }
 
       const allCourses = document.querySelectorAll('.course');
       const allButPracticas = Array.from(allCourses).filter(c => c.getAttribute('data-id') !== 'practicas');
