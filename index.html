@@ -370,7 +370,7 @@
       alert("Datos guardados");
     }
 
-function checkUnlocks() {
+    function checkUnlocks() {
   document.querySelectorAll('[data-dependency]').forEach(course => {
     const dependencyId = course.getAttribute('data-dependency');
     const dependency = document.querySelector(`[data-id="${dependencyId}"]`);
@@ -388,16 +388,14 @@ function checkUnlocks() {
   const optativosCourses = document.querySelectorAll('#optativos .course');
 
   if (allSem1Completed) {
-
     sem2Courses.forEach(c => {
       if (!c.hasAttribute('data-dependency')) c.classList.remove('locked');
     });
-
+    
     optativosCourses.forEach(c => {
       c.classList.remove('locked');
     });
   } else {
-
     sem2Courses.forEach(c => {
       if (!c.hasAttribute('data-dependency')) {
         c.classList.add('locked');
@@ -408,7 +406,6 @@ function checkUnlocks() {
     optativosCourses.forEach(c => {
       c.classList.add('locked');
       c.classList.remove('completed');
-
       const infoIcon = c.querySelector('.info-icon');
       c.style.opacity = '1';
       c.style.pointerEvents = 'auto';
