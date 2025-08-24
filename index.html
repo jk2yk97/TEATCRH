@@ -402,10 +402,22 @@
             c.classList.remove('completed');
           }
         });
-        optativosCourses.forEach(c => {
+               optativosCourses.forEach(c => {
           c.classList.add('locked');
           c.classList.remove('completed');
+          c.style.opacity = '';
+          c.style.pointerEvents = '';
+          c.style.color = '';
+          c.style.background = '';
+          c.style.borderColor = '';
+
+          const infoIcon = c.querySelector('.info-icon');
+          if (infoIcon) {
+            infoIcon.style.opacity = '';
+            infoIcon.style.pointerEvents = '';
+          }
         });
+
       }
 
       const allCourses = document.querySelectorAll('.course');
