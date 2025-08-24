@@ -165,6 +165,18 @@
     .flatpickr-weekday {
       color: #fa026a;
     }
+    
+    /* Estilos para el placeholder de los inputs */
+    .modal-content input::placeholder {
+      color: #ffa1ca;
+      opacity: 1;
+    }
+    
+    /* Estilo para el option por defecto en el select */
+    #modalEstado option[value=""][disabled] {
+      color: #ffa1ca;
+    }
+    
     @media (max-width: 900px) {
       .semesters {
         flex-direction: column;
@@ -491,8 +503,7 @@
       locale: "es",
       dateFormat: "d-m-Y",
       wrap: false,
-      allowInput: true,
-      placeholder: "Seleccione una fecha"
+      allowInput: true
     });
   </script>
 </body>
