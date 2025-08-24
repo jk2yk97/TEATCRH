@@ -309,7 +309,6 @@
                         infoIcon.style.pointerEvents = 'none';
                     }
                 } else {
-
                     course.style.opacity = '1';
                     course.style.pointerEvents = 'auto';
                     course.style.color = '';
@@ -386,9 +385,14 @@
       const sem1Courses = document.querySelectorAll('#sem1 .course');
       const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
       const sem2Courses = document.querySelectorAll('#sem2 .course');
+      const optativosCourses = document.querySelectorAll('#optativos .course');
+
       if (allSem1Completed) {
         sem2Courses.forEach(c => {
           if (!c.hasAttribute('data-dependency')) c.classList.remove('locked');
+        });
+        optativosCourses.forEach(c => {
+          c.classList.remove('locked');
         });
       } else {
         sem2Courses.forEach(c => {
@@ -397,17 +401,20 @@
             c.classList.remove('completed');
           }
         });
-      }
 
-      const optativosCourses = document.querySelectorAll('#optativos .course');
-      if (allSem1Completed) {
-        optativosCourses.forEach(c => {
-          c.classList.remove('locked');
-        });
-      } else {
         optativosCourses.forEach(c => {
           c.classList.add('locked');
           c.classList.remove('completed');
+          const infoIcon = c.querySelector('.info-icon');
+          c.style.opacity = '1';
+          c.style.pointerEvents = 'auto';
+          c.style.color = '';
+          c.style.background = '';
+          c.style.borderColor = '';
+          if (infoIcon) {
+            infoIcon.style.opacity = '1';
+            infoIcon.style.pointerEvents = 'auto';
+          }
         });
       }
 
@@ -453,7 +460,7 @@
         if (!saved[id]?.completed) c.classList.remove('completed');
         if (saved[id]?.locked) c.classList.add('locked');
         if (!saved[id]?.locked) c.classList.remove('locked');
-        
+
         if (saved[id]?.opacity) c.style.opacity = saved[id].opacity;
         if (saved[id]?.pointerEvents) c.style.pointerEvents = saved[id].pointerEvents;
         if (saved[id]?.color) c.style.color = saved[id].color;
@@ -463,7 +470,7 @@
         if (infoIcon && saved[id]?.iconOpacity) infoIcon.style.opacity = saved[id].iconOpacity;
         if (infoIcon && saved[id]?.iconPointerEvents) infoIcon.style.pointerEvents = saved[id].iconPointerEvents;
       });
-      
+
       const optativos = document.querySelectorAll('#optativos .course');
       const completedOptativo = Array.from(optativos).find(c => c.classList.contains('completed'));
       
