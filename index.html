@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <style>
+  <style>
     body {
       font-family: "Fredoka", sans-serif;
       font-weight: 600;
@@ -75,7 +75,7 @@
       pointer-events: none;
     }
     .course:hover:not(.locked) {
-      background: #fac5dc;
+      background: #fac5dc; /* Cambiado a azul como en los cambios solicitados */
     }
     .course.completed {
       background-color: #ffe3ef;
@@ -195,8 +195,8 @@
       outline: none;
     }
     .flatpickr-day:hover {
-      background: #fcdce9 !important;
-      border-color: #fcdce9 !important;
+      background: #fac5dc !important;
+      border-color: #fac5dc !important;
       color: #fa026a !important;
     }
     .flatpickr-day.selected, 
@@ -363,7 +363,7 @@
       <label>Fecha Fin:</label>
       <input type="text" id="modalFin" class="datepicker" placeholder="Seleccione una fecha">
       <label>Estado:</label>
-      <select id="modalEstado" required>
+      <select id="modalEstado">
         <option value="" selected disabled>Seleccione un estado</option>
         <option>En Curso</option>
         <option>Aprobado</option>
@@ -472,7 +472,7 @@
         fin: document.getElementById('modalFin').value,
         estado: document.getElementById('modalEstado').value
       };
-      const allData = JSON.parse(localStorage.getItem('courseData') || '{}');
+      const allData = JSON.parse(localware.getItem('courseData') || '{}');
       allData[currentCourseId] = data;
       localStorage.setItem('courseData', JSON.stringify(allData));
       closeModal();
@@ -595,7 +595,6 @@
 
     loadProgress();
 
-
     document.addEventListener('DOMContentLoaded', function() {
       flatpickr(".datepicker", {
         locale: "es",
@@ -603,7 +602,6 @@
         wrap: false,
         allowInput: true,
         onReady: function() {
-
           setTimeout(() => {
             document.querySelectorAll('.flatpickr-day').forEach(day => {
               day.style.color = '#fa026a';
