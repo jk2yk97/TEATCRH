@@ -472,11 +472,14 @@
         fin: document.getElementById('modalFin').value,
         estado: document.getElementById('modalEstado').value
       };
-      const allData = JSON.parse(localware.getItem('courseData') || '{}');
+      
+      // CORRECCIÓN: Cambiar 'localware' por 'localStorage'
+      const allData = JSON.parse(localStorage.getItem('courseData') || '{}');
       allData[currentCourseId] = data;
       localStorage.setItem('courseData', JSON.stringify(allData));
+      
       closeModal();
-      alert("Datos guardados");
+      alert("Datos guardados correctamente");
     }
 
     function checkUnlocks() {
