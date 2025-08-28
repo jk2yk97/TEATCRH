@@ -473,7 +473,6 @@
         estado: document.getElementById('modalEstado').value
       };
       
-      // CORRECCIÓN: Cambiar 'localware' por 'localStorage'
       const allData = JSON.parse(localStorage.getItem('courseData') || '{}');
       allData[currentCourseId] = data;
       localStorage.setItem('courseData', JSON.stringify(allData));
@@ -548,17 +547,9 @@
     function saveProgress() {
       const progress = {};
       document.querySelectorAll('.course').forEach(c => {
-        const infoIcon = c.querySelector('.info-icon');
         progress[c.getAttribute('data-id')] = { 
-          completed: c.classList.contains('completed'), 
-          locked: c.classList.contains('locked'),
-          opacity: c.style.opacity,
-          pointerEvents: c.style.pointerEvents,
-          color: c.style.color,
-          background: c.style.background,
-          borderColor: c.style.borderColor,
-          iconOpacity: infoIcon ? infoIcon.style.opacity : '',
-          iconPointerEvents: infoIcon ? infoIcon.style.pointerEvents : ''
+          completed: c.classList.contains('completed'),
+          locked: c.classList.contains('locked')
         };
       });
       localStorage.setItem('mallaProgress', JSON.stringify(progress));
@@ -567,25 +558,26 @@
     function loadProgress() {
       const saved = JSON.parse(localStorage.getItem('mallaProgress'));
       if (!saved) return;
+      
       document.querySelectorAll('.course').forEach(c => {
         const id = c.getAttribute('data-id');
-        const infoIcon = c.querySelector('.info-icon');
         
-        if (saved[id]?.completed) c.classList.add('completed');
-        if (!saved[id]?.completed) c.classList.remove('completed');
-        if (saved[id]?.locked) c.classList.add('locked');
-        if (!saved[id]?.locked) c.classList.remove('locked');
-
-        if (saved[id]?.opacity) c.style.opacity = saved[id].opacity;
-        if (saved[id]?.pointerEvents) c.style.pointerEvents = saved[id].pointerEvents;
-        if (saved[id]?.color) c.style.color = saved[id].color;
-        if (saved[id]?.background) c.style.background = saved[id].background;
-        if (saved[id]?.borderColor) c.style.borderColor = saved[id].borderColor;
+        // Restaurar el estado de completado
+        if (saved[id]?.completed) {
+          c.classList.add('completed');
+        } else {
+          c.classList.remove('completed');
+        }
         
-        if (infoIcon && saved[id]?.iconOpacity) infoIcon.style.opacity = saved[id].iconOpacity;
-        if (infoIcon && saved[id]?.iconPointerEvents) infoIcon.style.pointerEvents = saved[id].iconPointerEvents;
+        // Restaurar el estado de bloqueado
+        if (saved[id]?.locked) {
+          c.classList.add('locked');
+        } else {
+          c.classList.remove('locked');
+        }
       });
 
+      // Restaurar el comportamiento de los optativos
       const optativos = document.querySelectorAll('#optativos .course');
       const completedOptativo = Array.from(optativos).find(c => c.classList.contains('completed'));
       
