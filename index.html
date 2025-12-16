@@ -11,13 +11,15 @@
       --rosa-fuerte: #ff99e6;
       --rosa-oscuro: #e60073;
       --rosa-suave: #ffd9eb;
+      --rosa-texto: #660040;
     }
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--rosa-claro);
-      color: #4a0033;
+      color: var(--rosa-texto);
+      font-weight: 450;
     }
 
     header {
@@ -31,6 +33,8 @@
     header h1 {
       margin: 0;
       font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     .container {
@@ -51,32 +55,34 @@
     .semester h2 {
       margin: 0;
       padding: 1rem;
-      background: linear-gradient(to right, var(--rosa-fuerte), var(--rosa-oscuro));
+      background-color: var(--rosa-fuerte);
       text-align: center;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: white;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      font-weight: 550;
+      letter-spacing: 0.3px;
     }
 
     .subtitle {
       margin: 0.5rem 1rem 0.25rem;
-      font-size: 0.9rem;
-      font-weight: bold;
+      font-size: 0.92rem;
+      font-weight: 550;
       color: var(--rosa-oscuro);
       background-color: var(--rosa-suave);
-      padding: 0.35rem 0.5rem;
+      padding: 0.4rem 0.6rem;
       border-radius: 8px;
       text-align: center;
       border-left: 3px solid var(--rosa-fuerte);
     }
 
     .course {
-      padding: 0.75rem 1rem;
+      padding: 0.8rem 1rem;
       border-bottom: 1px solid var(--rosa-suave);
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
       user-select: none;
+      font-weight: 480;
     }
 
     .course:last-child {
@@ -89,6 +95,7 @@
       background-color: var(--rosa-suave);
       color: #990066;
       border-left: 4px solid var(--rosa-oscuro);
+      font-weight: 450;
     }
 
     .course.locked {
@@ -97,22 +104,25 @@
       cursor: not-allowed;
       background-color: #fff0f9;
       color: #cc99bb;
+      font-weight: 400;
     }
 
     .course:not(.locked):hover {
       background-color: var(--rosa-claro);
       transform: translateX(5px);
       box-shadow: inset 3px 0 0 var(--rosa-fuerte);
+      font-weight: 500;
     }
 
     footer {
       text-align: center;
       padding: 1rem;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #990066;
       background-color: var(--rosa-suave);
       margin-top: 1rem;
       border-top: 1px solid var(--rosa-medio);
+      font-weight: 480;
     }
   </style>
 </head>
