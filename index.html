@@ -6,24 +6,26 @@
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
   <style>
     :root {
-      --celeste-claro: #e6f7fb;
-      --celeste-medio: #b3e5f2;
-      --celeste-fuerte: #4fc3dc;
-      --celeste-oscuro: #0288a7;
+      --rosa-claro: #ffe6f2;
+      --rosa-medio: #ffccf2;
+      --rosa-fuerte: #ff99e6;
+      --rosa-oscuro: #e60073;
+      --rosa-suave: #ffd9eb;
     }
 
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background-color: var(--celeste-claro);
-      color: #033;
+      background-color: var(--rosa-claro);
+      color: #4a0033;
     }
 
     header {
-      background-color: var(--celeste-oscuro);
+      background-color: var(--rosa-oscuro);
       color: white;
       padding: 1.5rem;
       text-align: center;
+      box-shadow: 0 2px 8px rgba(230, 0, 115, 0.2);
     }
 
     header h1 {
@@ -41,33 +43,36 @@
     .semester {
       background-color: white;
       border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 12px rgba(255, 102, 204, 0.1);
       overflow: hidden;
+      border: 1px solid var(--rosa-suave);
     }
 
     .semester h2 {
       margin: 0;
       padding: 1rem;
-      background-color: var(--celeste-medio);
+      background: linear-gradient(to right, var(--rosa-fuerte), var(--rosa-oscuro));
       text-align: center;
       font-size: 1.1rem;
-      color: var(--celeste-oscuro);
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
     }
 
     .subtitle {
       margin: 0.5rem 1rem 0.25rem;
       font-size: 0.9rem;
       font-weight: bold;
-      color: var(--celeste-oscuro);
-      background-color: var(--celeste-claro);
+      color: var(--rosa-oscuro);
+      background-color: var(--rosa-suave);
       padding: 0.35rem 0.5rem;
       border-radius: 8px;
       text-align: center;
+      border-left: 3px solid var(--rosa-fuerte);
     }
 
     .course {
       padding: 0.75rem 1rem;
-      border-bottom: 1px solid #e0f2f7;
+      border-bottom: 1px solid var(--rosa-suave);
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
@@ -80,26 +85,34 @@
 
     .course.completed {
       text-decoration: line-through;
-      opacity: 0.7;
-      background-color: #e8f7fb;
+      opacity: 0.8;
+      background-color: var(--rosa-suave);
+      color: #990066;
+      border-left: 4px solid var(--rosa-oscuro);
     }
 
     .course.locked {
       opacity: 0.4;
       pointer-events: none;
       cursor: not-allowed;
-      background-color: #f5f5f5;
+      background-color: #fff0f9;
+      color: #cc99bb;
     }
 
     .course:not(.locked):hover {
-      background-color: var(--celeste-claro);
+      background-color: var(--rosa-claro);
+      transform: translateX(5px);
+      box-shadow: inset 3px 0 0 var(--rosa-fuerte);
     }
 
     footer {
       text-align: center;
       padding: 1rem;
       font-size: 0.85rem;
-      color: #055;
+      color: #990066;
+      background-color: var(--rosa-suave);
+      margin-top: 1rem;
+      border-top: 1px solid var(--rosa-medio);
     }
   </style>
 </head>
@@ -130,7 +143,7 @@
     <div class="course" data-id="facturacion2">Facturación y Caja en Alojamientos II</div>
     <div class="course" data-id="seguridad">Seguridad, Higiene y Protección Ambiental en Restauración</div>
 
-    <div class="subtitle">Optativos</div>
+    <div class="subtitle">Optativos (Elegir 1)</div>
     <div id="optativos">
       <div class="course" data-id="cultura_paz">Cultura de Paz</div>
       <div class="course" data-id="identidad_cultural">Identidad Cultural</div>
@@ -143,12 +156,11 @@
 </main>
 
 <footer>
-  Diseño tipo malla curricular
+  Diseño tipo malla curricular • Tonalidades rosa pastel
 </footer>
 
 <script>
   const courses = document.querySelectorAll('.course');
-
 
   function handleOptativosExclusivos(clickedCourse) {
     if (!clickedCourse.closest('#optativos')) return;
@@ -157,38 +169,30 @@
     const clickedId = clickedCourse.getAttribute('data-id');
     
     if (clickedCourse.classList.contains('completed')) {
-
       optativos.forEach(course => {
         if (course.getAttribute('data-id') !== clickedId) {
           course.classList.remove('completed');
         }
       });
-    } else {
-
     }
   }
 
   courses.forEach(course => {
     course.addEventListener('click', () => {
-
       if (course.classList.contains('locked')) return;
       
-
       course.classList.toggle('completed');
       
-
       if (course.closest('#optativos')) {
         handleOptativosExclusivos(course);
       }
-    
+      
       checkUnlocks();
-
       saveProgress();
     });
   });
 
   function checkUnlocks() {
-
     const sem1Courses = document.querySelectorAll('#sem1 .course');
     sem1Courses.forEach(course => {
       course.classList.remove('locked');
@@ -196,7 +200,6 @@
     
     const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
     
-
     const sem2Courses = document.querySelectorAll('#sem2 .course');
     const optativosCourses = document.querySelectorAll('#optativos .course');
     const practicas = document.querySelector('[data-id="practicas"]');
@@ -212,13 +215,13 @@
         c.getAttribute('data-id') !== 'practicas' && 
         !c.closest('#optativos')
       );
-    
+      
       const optativosArray = Array.from(optativosCourses);
       const atLeastOneOptativoSelected = optativosArray.some(c => c.classList.contains('completed'));
       
       const allSem2Completed = sem2WithoutPracticas.every(c => c.classList.contains('completed')) && 
                                atLeastOneOptativoSelected;
-  
+      
       if (allSem2Completed) {
         practicas.classList.remove('locked');
       } else {
@@ -232,7 +235,7 @@
         course.classList.remove('completed');
       });
     }
-  
+    
     if (!allSem1Completed) {
       optativosCourses.forEach(course => {
         course.classList.remove('completed');
