@@ -60,6 +60,10 @@
       font-size: 0.9rem;
       font-weight: bold;
       color: var(--celeste-oscuro);
+      background-color: var(--celeste-claro);
+      padding: 0.35rem 0.5rem;
+      border-radius: 8px;
+      text-align: center;
     }
 
     .course {
@@ -129,12 +133,58 @@
 </footer>
 
 <script>
-  document.querySelectorAll('.course').forEach(course => {
+  const courses = document.querySelectorAll('.course');
+  
+  courses.forEach(course => {
     course.addEventListener('click', () => {
       course.classList.toggle('completed');
+      checkUnlocks();
+      saveProgress();
     });
   });
+
+  function checkUnlocks() {
+    const sem1 = document.querySelectorAll('.semester:nth-of-type(1) .course');
+    const sem2 = document.querySelectorAll('.semester:nth-of-type(2) .course');
+
+    const allSem1Completed = Array.from(sem1).every(c =>
+      c.classList.contains('completed')
+    );
+
+    sem2.forEach(course => {
+      if (allSem1Completed) {
+        course.style.pointerEvents = 'auto';
+        course.style.opacity = '1';
+      } else {
+        course.style.pointerEvents = 'none';
+        course.style.opacity = '0.4';
+        course.classList.remove('completed');
+      }
+    });
+  }
+
+  function saveProgress() {
+    const progress = {};
+    document.querySelectorAll('.course').forEach((c, i) => {
+      progress[i] = c.classList.contains('completed');
+    });
+    localStorage.setItem('mallaTecnico', JSON.stringify(progress));
+  }
+
+  function loadProgress() {
+    const saved = JSON.parse(localStorage.getItem('mallaTecnico'));
+    if (!saved) return;
+
+    document.querySelectorAll('.course').forEach((c, i) => {
+      if (saved[i]) c.classList.add('completed');
+    });
+
+    checkUnlocks();
+  }
+
+  loadProgress();
 </script>
+
 
 </body>
 </html>
