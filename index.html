@@ -6,123 +6,119 @@
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
   <style>
     :root {
-      --rosa: #ff99e6;
-      --verde: #e6ff99;
-      --azul: #99e6ff;
-      --coral: #ffc9b8;
-      --menta: #b8ffc9;
-      --lila: #c9b8ff;
-      --texto-oscuro: #333344;
-      --texto-claro: #666677;
+      /* Tus colores originales */
+      --rosa-fuerte: #f1396d;
+      --rosa-suave: #fd6081;
+      --verde-claro: #f3ffeb;
+      --verde-medio: #acc95f;
+      --verde-oscuro: #8f9924;
+      
+      /* Café que agregué para balancear */
+      --cafe: #8b7355;
+      --cafe-claro: #d4c4b0;
+      
+      /* Colores neutros */
+      --blanco: #ffffff;
+      --gris-claro: #f8f8f8;
+      --gris-texto: #555555;
+      --negro-suave: #333333;
     }
 
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f9f9ff 0%, #fff9f9 100%);
-      color: var(--texto-oscuro);
+      background-color: var(--verde-claro);
+      color: var(--negro-suave);
       font-weight: 450;
       line-height: 1.6;
     }
 
     header {
-      background: linear-gradient(135deg, var(--rosa) 0%, var(--lila) 100%);
-      color: var(--texto-oscuro);
+      background-color: var(--rosa-fuerte);
+      color: var(--blanco);
       padding: 1.5rem;
       text-align: center;
-      box-shadow: 0 4px 15px rgba(153, 153, 255, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, transparent 60%, rgba(255, 255, 255, 0.2) 100%);
+      border-bottom: 4px solid var(--rosa-suave);
     }
 
     header h1 {
       margin: 0;
-      font-size: 1.5rem;
-      font-weight: 650;
+      font-size: 1.6rem;
+      font-weight: 600;
       letter-spacing: 0.5px;
-      position: relative;
-      z-index: 1;
     }
 
     .container {
       padding: 2rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .semester {
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 6px 20px rgba(153, 153, 255, 0.15);
+      background-color: var(--blanco);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(241, 57, 109, 0.1);
       overflow: hidden;
-      border: 2px solid;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .semester:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(153, 153, 255, 0.25);
+      border: 2px solid var(--cafe-claro);
     }
 
     .semester#sem1 {
-      border-color: var(--azul);
+      border-top: 6px solid var(--verde-medio);
     }
 
     .semester#sem2 {
-      border-color: var(--verde);
+      border-top: 6px solid var(--verde-oscuro);
     }
 
     .semester h2 {
       margin: 0;
       padding: 1.2rem;
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      letter-spacing: 0.3px;
-      color: var(--texto-oscuro);
+      color: var(--negro-suave);
+      background-color: var(--gris-claro);
+      border-bottom: 2px solid var(--cafe-claro);
       position: relative;
-      overflow: hidden;
     }
 
-    .semester#sem1 h2 {
-      background: linear-gradient(135deg, var(--azul) 0%, #b3ecff 100%);
+    .semester#sem1 h2::before {
+      content: "🌸";
+      margin-right: 10px;
+      color: var(--rosa-suave);
     }
 
-    .semester#sem2 h2 {
-      background: linear-gradient(135deg, var(--verde) 0%, #ecffb3 100%);
+    .semester#sem2 h2::before {
+      content: "🌼";
+      margin-right: 10px;
+      color: var(--verde-oscuro);
     }
 
     .subtitle {
       margin: 1rem 1rem 0.5rem;
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--texto-oscuro);
-      background-color: var(--coral);
-      padding: 0.5rem 0.8rem;
-      border-radius: 10px;
+      color: var(--rosa-fuerte);
+      background-color: var(--gris-claro);
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
       text-align: center;
-      border-left: 4px solid var(--rosa);
+      border-left: 4px solid var(--cafe);
+      border-right: 4px solid var(--cafe);
     }
 
     #optativos .subtitle {
-      background-color: var(--menta);
-      border-left-color: var(--lila);
+      color: var(--verde-oscuro);
+      border-left-color: var(--verde-medio);
+      border-right-color: var(--verde-medio);
     }
 
     .course {
-      padding: 0.9rem 1.2rem;
-      border-bottom: 1px solid rgba(200, 200, 255, 0.3);
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid var(--cafe-claro);
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
@@ -130,29 +126,38 @@
       font-weight: 480;
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-
-    .course::before {
-      content: '○';
-      color: var(--rosa);
-      font-size: 0.8rem;
-      transition: all 0.3s;
+      gap: 12px;
     }
 
     .course:last-child {
       border-bottom: none;
     }
 
+    .course::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--rosa-suave);
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+
     .course.completed {
-      background-color: rgba(184, 255, 201, 0.15);
-      color: var(--texto-claro);
-      border-left: 4px solid var(--menta);
+      background-color: rgba(172, 201, 95, 0.1);
+      color: var(--gris-texto);
+      border-left: 4px solid var(--verde-medio);
     }
 
     .course.completed::before {
+      background-color: var(--verde-medio);
+      border-color: var(--verde-medio);
       content: '✓';
-      color: var(--menta);
+      color: white;
+      font-size: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: bold;
     }
 
@@ -160,41 +165,48 @@
       opacity: 0.5;
       pointer-events: none;
       cursor: not-allowed;
-      background-color: rgba(201, 184, 255, 0.1);
+      background-color: var(--gris-claro);
     }
 
     .course.locked::before {
-      content: '◌';
-      color: var(--lila);
+      border-color: var(--cafe);
+      border-style: dotted;
     }
 
     .course:not(.locked):hover {
-      background-color: rgba(255, 201, 184, 0.1);
-      transform: translateX(8px);
-      box-shadow: inset 4px 0 0 var(--coral);
+      background-color: rgba(253, 96, 129, 0.08);
+      transform: translateX(5px);
     }
 
     .course:not(.locked):hover::before {
+      background-color: var(--rosa-suave);
       transform: scale(1.2);
-      color: var(--coral);
     }
 
     footer {
       text-align: center;
       padding: 1.5rem;
       font-size: 0.9rem;
-      color: var(--texto-claro);
-      background: linear-gradient(135deg, #f9f9ff 0%, #fff9f9 100%);
-      margin-top: 2rem;
-      border-top: 2px solid var(--lila);
-      font-weight: 480;
+      color: var(--negro-suave);
+      background-color: var(--cafe-claro);
+      margin-top: 3rem;
+      border-top: 3px solid var(--cafe);
     }
 
-    footer::before {
-      content: '🎓';
-      font-size: 1.2rem;
-      margin-right: 8px;
-      vertical-align: middle;
+    .palette-show {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .palette-color {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
   </style>
 </head>
@@ -202,6 +214,14 @@
 
 <header>
   <h1>Técnico Especialista en Atención al Cliente y Recepción Hotelera</h1>
+  <div class="palette-show">
+    <div class="palette-color" style="background-color: #f1396d"></div>
+    <div class="palette-color" style="background-color: #fd6081"></div>
+    <div class="palette-color" style="background-color: #f3ffeb"></div>
+    <div class="palette-color" style="background-color: #acc95f"></div>
+    <div class="palette-color" style="background-color: #8f9924"></div>
+    <div class="palette-color" style="background-color: #8b7355"></div>
+  </div>
 </header>
 
 <main class="container">
@@ -238,7 +258,10 @@
 </main>
 
 <footer>
-  Malla Curricular Interactiva • Colores Vibrantes
+  <div>Malla Curricular Interactiva • Paleta: Rosita Fresita + Café</div>
+  <div style="font-size: 0.8rem; margin-top: 5px; color: #8b7355;">
+    🌸 Colores: Rosa Fuerte, Rosa Suave, Verde Claro, Verde Medio, Verde Oscuro, Café
+  </div>
 </footer>
 
 <script>
