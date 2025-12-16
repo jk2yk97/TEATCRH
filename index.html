@@ -6,21 +6,24 @@
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
   <style>
     :root {
+      /* Paleta sin verdes - solo rosa y café */
       --rosa: #db3c6e;
+      --rosa-claro: #ffb6c1;
+      --rosa-muy-claro: #ffe6ea;
       --cafe-oscuro: #3b1a01;
-      --verde-claro: #a5cc7a;
-      --verde-muy-claro: #dcffb6;
       --cafe-medio: #633b1c;
+      --cafe-claro: #8b5a2b;
+      
+      /* Colores adicionales */
       --blanco: #ffffff;
-      --gris-claro: #f8f8f8;
-      --gris-texto: #555555;
-      --negro-suave: #333333;
+      --gris-claro: #f9f9f9;
+      --gris-texto: #666666;
     }
 
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--verde-muy-claro);
+      background-color: var(--rosa-muy-claro);
       color: var(--cafe-oscuro);
       font-weight: 450;
       line-height: 1.6;
@@ -59,7 +62,7 @@
     }
 
     .semester#sem1 {
-      border-top: 8px solid var(--verde-claro);
+      border-top: 8px solid var(--rosa);
     }
 
     .semester#sem2 {
@@ -77,25 +80,29 @@
       border-bottom: 3px solid var(--cafe-medio);
     }
 
+    .semester#sem2 h2 {
+      background-color: var(--cafe-medio);
+    }
+
     .subtitle {
       margin: 1.2rem 1rem 0.5rem;
       font-size: 1rem;
       font-weight: bold;
-      color: var(--rosa);
-      background-color: rgba(219, 60, 110, 0.1);
+      color: var(--cafe-oscuro);
+      background-color: var(--rosa-claro);
       padding: 0.7rem 0.8rem;
       border-radius: 8px;
       text-align: center;
     }
 
     #optativos .subtitle {
-      background-color: rgba(99, 59, 28, 0.1);
+      background-color: rgba(99, 59, 28, 0.15);
       color: var(--cafe-medio);
     }
 
     .course {
       padding: 1rem 1.2rem;
-      border-bottom: 2px solid var(--verde-muy-claro);
+      border-bottom: 2px solid var(--rosa-muy-claro);
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
@@ -121,15 +128,15 @@
     }
 
     .course.completed {
-      background-color: rgba(165, 204, 122, 0.2);
+      background-color: rgba(219, 60, 110, 0.1);
       color: var(--gris-texto);
     }
 
     .course.completed::before {
-      background-color: var(--verde-claro);
-      border-color: var(--verde-claro);
+      background-color: var(--rosa);
+      border-color: var(--rosa);
       content: '✓';
-      color: var(--cafe-oscuro);
+      color: var(--blanco);
       font-size: 9px;
       display: flex;
       align-items: center;
@@ -150,7 +157,7 @@
     }
 
     .course:not(.locked):hover {
-      background-color: rgba(219, 60, 110, 0.08);
+      background-color: rgba(219, 60, 110, 0.15);
       transform: translateX(5px);
     }
 
@@ -230,10 +237,11 @@
   
   <div class="palette-show">
     <div class="palette-color" style="background-color: #db3c6e"></div>
+    <div class="palette-color" style="background-color: #ffb6c1"></div>
+    <div class="palette-color" style="background-color: #ffe6ea"></div>
     <div class="palette-color" style="background-color: #3b1a01"></div>
-    <div class="palette-color" style="background-color: #a5cc7a"></div>
-    <div class="palette-color" style="background-color: #dcffb6"></div>
     <div class="palette-color" style="background-color: #633b1c"></div>
+    <div class="palette-color" style="background-color: #8b5a2b"></div>
   </div>
   
   <div style="margin-top: 15px; font-size: 0.8rem; color: var(--cafe-medio;">
