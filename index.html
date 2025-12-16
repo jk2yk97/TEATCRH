@@ -6,83 +6,138 @@
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
   <style>
     :root {
-      --rosa-claro: #ffe6f2;
-      --rosa-medio: #ffccf2;
-      --rosa-fuerte: #ff99e6;
-      --rosa-oscuro: #e60073;
-      --rosa-suave: #ffd9eb;
-      --rosa-texto: #660040;
+      --rosa: #ff99e6;
+      --verde: #e6ff99;
+      --azul: #99e6ff;
+      --coral: #ffc9b8;
+      --menta: #b8ffc9;
+      --lila: #c9b8ff;
+      --texto-oscuro: #333344;
+      --texto-claro: #666677;
     }
 
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--rosa-claro);
-      color: var(--rosa-texto);
+      background: linear-gradient(135deg, #f9f9ff 0%, #fff9f9 100%);
+      color: var(--texto-oscuro);
       font-weight: 450;
+      line-height: 1.6;
     }
 
     header {
-      background-color: var(--rosa-oscuro);
-      color: white;
+      background: linear-gradient(135deg, var(--rosa) 0%, var(--lila) 100%);
+      color: var(--texto-oscuro);
       padding: 1.5rem;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(230, 0, 115, 0.2);
+      box-shadow: 0 4px 15px rgba(153, 153, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 60%, rgba(255, 255, 255, 0.2) 100%);
     }
 
     header h1 {
       margin: 0;
       font-size: 1.5rem;
-      font-weight: 600;
+      font-weight: 650;
       letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1;
     }
 
     .container {
       padding: 2rem;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+      gap: 2rem;
     }
 
     .semester {
-      background-color: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(255, 102, 204, 0.1);
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(153, 153, 255, 0.15);
       overflow: hidden;
-      border: 1px solid var(--rosa-suave);
+      border: 2px solid;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .semester:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(153, 153, 255, 0.25);
+    }
+
+    .semester#sem1 {
+      border-color: var(--azul);
+    }
+
+    .semester#sem2 {
+      border-color: var(--verde);
     }
 
     .semester h2 {
       margin: 0;
-      padding: 1rem;
-      background-color: var(--rosa-fuerte);
+      padding: 1.2rem;
       text-align: center;
-      font-size: 1.15rem;
-      color: white;
-      font-weight: 550;
+      font-size: 1.2rem;
+      font-weight: 600;
       letter-spacing: 0.3px;
+      color: var(--texto-oscuro);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .semester#sem1 h2 {
+      background: linear-gradient(135deg, var(--azul) 0%, #b3ecff 100%);
+    }
+
+    .semester#sem2 h2 {
+      background: linear-gradient(135deg, var(--verde) 0%, #ecffb3 100%);
     }
 
     .subtitle {
-      margin: 0.5rem 1rem 0.25rem;
-      font-size: 0.92rem;
-      font-weight: 550;
-      color: var(--rosa-oscuro);
-      background-color: var(--rosa-suave);
-      padding: 0.4rem 0.6rem;
-      border-radius: 8px;
+      margin: 1rem 1rem 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--texto-oscuro);
+      background-color: var(--coral);
+      padding: 0.5rem 0.8rem;
+      border-radius: 10px;
       text-align: center;
-      border-left: 3px solid var(--rosa-fuerte);
+      border-left: 4px solid var(--rosa);
+    }
+
+    #optativos .subtitle {
+      background-color: var(--menta);
+      border-left-color: var(--lila);
     }
 
     .course {
-      padding: 0.8rem 1rem;
-      border-bottom: 1px solid var(--rosa-suave);
+      padding: 0.9rem 1.2rem;
+      border-bottom: 1px solid rgba(200, 200, 255, 0.3);
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
       user-select: none;
       font-weight: 480;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .course::before {
+      content: '○';
+      color: var(--rosa);
+      font-size: 0.8rem;
+      transition: all 0.3s;
     }
 
     .course:last-child {
@@ -90,39 +145,56 @@
     }
 
     .course.completed {
-      text-decoration: line-through;
-      opacity: 0.8;
-      background-color: var(--rosa-suave);
-      color: #990066;
-      border-left: 4px solid var(--rosa-oscuro);
-      font-weight: 450;
+      background-color: rgba(184, 255, 201, 0.15);
+      color: var(--texto-claro);
+      border-left: 4px solid var(--menta);
+    }
+
+    .course.completed::before {
+      content: '✓';
+      color: var(--menta);
+      font-weight: bold;
     }
 
     .course.locked {
-      opacity: 0.4;
+      opacity: 0.5;
       pointer-events: none;
       cursor: not-allowed;
-      background-color: #fff0f9;
-      color: #cc99bb;
-      font-weight: 400;
+      background-color: rgba(201, 184, 255, 0.1);
+    }
+
+    .course.locked::before {
+      content: '◌';
+      color: var(--lila);
     }
 
     .course:not(.locked):hover {
-      background-color: var(--rosa-claro);
-      transform: translateX(5px);
-      box-shadow: inset 3px 0 0 var(--rosa-fuerte);
-      font-weight: 500;
+      background-color: rgba(255, 201, 184, 0.1);
+      transform: translateX(8px);
+      box-shadow: inset 4px 0 0 var(--coral);
+    }
+
+    .course:not(.locked):hover::before {
+      transform: scale(1.2);
+      color: var(--coral);
     }
 
     footer {
       text-align: center;
-      padding: 1rem;
+      padding: 1.5rem;
       font-size: 0.9rem;
-      color: #990066;
-      background-color: var(--rosa-suave);
-      margin-top: 1rem;
-      border-top: 1px solid var(--rosa-medio);
+      color: var(--texto-claro);
+      background: linear-gradient(135deg, #f9f9ff 0%, #fff9f9 100%);
+      margin-top: 2rem;
+      border-top: 2px solid var(--lila);
       font-weight: 480;
+    }
+
+    footer::before {
+      content: '🎓';
+      font-size: 1.2rem;
+      margin-right: 8px;
+      vertical-align: middle;
     }
   </style>
 </head>
@@ -166,7 +238,7 @@
 </main>
 
 <footer>
-  Diseño tipo malla curricular • Tonalidades rosa pastel
+  Malla Curricular Interactiva • Colores Vibrantes
 </footer>
 
 <script>
