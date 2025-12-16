@@ -70,8 +70,9 @@
       padding: 0.75rem 1rem;
       border-bottom: 1px solid #e0f2f7;
       cursor: pointer;
-      transition: background-color 0.3s, text-decoration 0.3s, opacity 0.3s;
+      transition: all 0.3s;
       position: relative;
+      user-select: none;
     }
 
     .course:last-child {
@@ -80,8 +81,8 @@
 
     .course.completed {
       text-decoration: line-through;
-      opacity: 0.6;
-      background-color: #dff3f9;
+      opacity: 0.7;
+      background-color: #e8f7fb;
     }
 
     .course.locked {
@@ -91,21 +92,8 @@
       background-color: #f5f5f5;
     }
 
-    .info-icon {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      background-color: var(--celeste-oscuro);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      cursor: pointer;
+    .course:not(.locked):hover {
+      background-color: var(--celeste-claro);
     }
 
     footer {
@@ -139,9 +127,9 @@
 
   <section class="semester" id="sem2">
     <h2>Semestre II</h2>
-    <div class="course" data-id="english2" data-dependency="english1">English A2 Waystage</div>
-    <div class="course" data-id="facturacion2" data-dependency="facturacion1">Facturación y Caja en Alojamientos II</div>
-    <div class="course" data-id="seguridad" data-dependency="sistemas">Seguridad, Higiene y Protección Ambiental en Restauración</div>
+    <div class="course" data-id="english2">English A2 Waystage</div>
+    <div class="course" data-id="facturacion2">Facturación y Caja en Alojamientos II</div>
+    <div class="course" data-id="seguridad">Seguridad, Higiene y Protección Ambiental en Restauración</div>
 
     <div class="subtitle">Optativos (Elegir 1)</div>
     <div id="optativos">
@@ -162,162 +150,121 @@
 <script>
   const courses = document.querySelectorAll('.course');
 
+
   function handleOptativosExclusivos(clickedCourse) {
+    if (!clickedCourse.closest('#optativos')) return;
+    
     const optativos = document.querySelectorAll('#optativos .course');
     const clickedId = clickedCourse.getAttribute('data-id');
     
-    optativos.forEach(course => {
-      if (course.getAttribute('data-id') !== clickedId) {
-        const infoIcon = course.querySelector('.info-icon');
-        if (clickedCourse.classList.contains('completed')) {
-          course.style.opacity = '0.3';
-          course.style.pointerEvents = 'none';
-          course.style.background = '#e8f4f8';
-          course.style.borderColor = '#b3e5f2';
-          course.classList.add('locked');
+    if (clickedCourse.classList.contains('completed')) {
 
-          if (infoIcon) {
-            infoIcon.style.opacity = '0';
-            infoIcon.style.pointerEvents = 'none';
-          }
-        } else {
-          course.style.opacity = '1';
-          course.style.pointerEvents = 'auto';
-          course.style.background = '';
-          course.style.borderColor = '';
-          course.classList.remove('locked');
-
-          if (infoIcon) {
-            infoIcon.style.opacity = '1';
-            infoIcon.style.pointerEvents = 'auto';
-          }
+      optativos.forEach(course => {
+        if (course.getAttribute('data-id') !== clickedId) {
+          course.classList.remove('completed');
         }
-      }
-    });
-    saveProgress();
+      });
+    } else {
+
+    }
   }
 
   courses.forEach(course => {
-    course.addEventListener('click', (e) => {
-      if(e.target.closest('.info-icon')) return;
-      if(course.classList.contains('locked')) return;
+    course.addEventListener('click', () => {
+
+      if (course.classList.contains('locked')) return;
       
+
       course.classList.toggle('completed');
       
+
       if (course.closest('#optativos')) {
         handleOptativosExclusivos(course);
       }
-      
+    
       checkUnlocks();
+
       saveProgress();
     });
   });
 
   function checkUnlocks() {
 
-    document.querySelectorAll('[data-dependency]').forEach(course => {
-      const dependencyId = course.getAttribute('data-dependency');
-      const dependency = document.querySelector(`[data-id="${dependencyId}"]`);
-      if (dependency && dependency.classList.contains('completed')) {
-        course.classList.remove('locked');
-      } else {
-        course.classList.add('locked');
-        course.classList.remove('completed');
-      }
-    });
-
     const sem1Courses = document.querySelectorAll('#sem1 .course');
+    sem1Courses.forEach(course => {
+      course.classList.remove('locked');
+    });
+    
     const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
+    
 
     const sem2Courses = document.querySelectorAll('#sem2 .course');
     const optativosCourses = document.querySelectorAll('#optativos .course');
-
+    const practicas = document.querySelector('[data-id="practicas"]');
+    
     if (allSem1Completed) {
-      sem2Courses.forEach(c => {
-
-        if (!c.hasAttribute('data-dependency')) {
-          c.classList.remove('locked');
+      sem2Courses.forEach(course => {
+        if (course.getAttribute('data-id') !== 'practicas') {
+          course.classList.remove('locked');
         }
       });
-      optativosCourses.forEach(c => {
-        c.classList.remove('locked');
-      });
+
+      const sem2WithoutPracticas = Array.from(sem2Courses).filter(c => 
+        c.getAttribute('data-id') !== 'practicas' && 
+        !c.closest('#optativos')
+      );
+    
+      const optativosArray = Array.from(optativosCourses);
+      const atLeastOneOptativoSelected = optativosArray.some(c => c.classList.contains('completed'));
+      
+      const allSem2Completed = sem2WithoutPracticas.every(c => c.classList.contains('completed')) && 
+                               atLeastOneOptativoSelected;
+  
+      if (allSem2Completed) {
+        practicas.classList.remove('locked');
+      } else {
+        practicas.classList.add('locked');
+        practicas.classList.remove('completed');
+      }
+      
     } else {
-   
-      sem2Courses.forEach(c => {
-        if (!c.hasAttribute('data-dependency')) {
-          c.classList.add('locked');
-          c.classList.remove('completed');
-        }
-      });
-      optativosCourses.forEach(c => {
-        c.classList.add('locked');
-        c.classList.remove('completed');
-        c.style.opacity = '';
-        c.style.pointerEvents = '';
-        c.style.background = '';
-        c.style.borderColor = '';
-
-        const infoIcon = c.querySelector('.info-icon');
-        if (infoIcon) {
-          infoIcon.style.opacity = '';
-          infoIcon.style.pointerEvents = '';
-        }
+      sem2Courses.forEach(course => {
+        course.classList.add('locked');
+        course.classList.remove('completed');
       });
     }
-    
-    const allCourses = document.querySelectorAll('.course');
-    const allButPracticas = Array.from(allCourses).filter(c => 
-      c.getAttribute('data-id') !== 'practicas' && 
-      !c.classList.contains('locked')
-    );
-
-    const allCompleted = allButPracticas.every(c => c.classList.contains('completed'));
-    const practicas = document.querySelector('[data-id="practicas"]');
-
-    if (allCompleted) {
-      practicas.classList.remove('locked');
-    } else {
-      practicas.classList.add('locked');
-      practicas.classList.remove('completed');
+  
+    if (!allSem1Completed) {
+      optativosCourses.forEach(course => {
+        course.classList.remove('completed');
+      });
     }
   }
 
   function saveProgress() {
     const progress = {};
     document.querySelectorAll('.course').forEach(c => {
-      progress[c.getAttribute('data-id')] = { 
-        completed: c.classList.contains('completed'),
-        locked: c.classList.contains('locked')
-      };
+      progress[c.getAttribute('data-id')] = c.classList.contains('completed');
     });
     localStorage.setItem('mallaProgress', JSON.stringify(progress));
   }
 
   function loadProgress() {
     const saved = JSON.parse(localStorage.getItem('mallaProgress'));
-    if (!saved) return;
+    if (!saved) {
+      checkUnlocks();
+      return;
+    }
     
     document.querySelectorAll('.course').forEach(c => {
       const id = c.getAttribute('data-id');
-      if (saved[id]?.completed) {
+      if (saved[id]) {
         c.classList.add('completed');
       } else {
         c.classList.remove('completed');
       }
-      if (saved[id]?.locked) {
-        c.classList.add('locked');
-      } else {
-        c.classList.remove('locked');
-      }
     });
-
-    const optativos = document.querySelectorAll('#optativos .course');
-    const completedOptativo = Array.from(optativos).find(c => c.classList.contains('completed'));
-    if (completedOptativo) {
-      handleOptativosExclusivos(completedOptativo);
-    }
-
+    
     checkUnlocks();
   }
 
