@@ -6,18 +6,14 @@
   <title>Técnico Especialista en Atención al Cliente y Recepción Hotelera</title>
   <style>
     :root {
-      /* Tus colores originales */
-      --rosa-fuerte: #f1396d;
-      --rosa-suave: #fd6081;
-      --verde-claro: #f3ffeb;
-      --verde-medio: #acc95f;
-      --verde-oscuro: #8f9924;
+      /* Paleta principal */
+      --cafe-oscuro: #3b1a01;
+      --cafe-medio: #633b1c;
+      --verde-claro: #a5cc7a;
+      --verde-muy-claro: #dcffb6;
+      --rosa: #db3c6e;
       
-      /* Café que agregué para balancear */
-      --cafe: #8b7355;
-      --cafe-claro: #d4c4b0;
-      
-      /* Colores neutros */
+      /* Colores adicionales */
       --blanco: #ffffff;
       --gris-claro: #f8f8f8;
       --gris-texto: #555555;
@@ -27,24 +23,24 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--verde-claro);
-      color: var(--negro-suave);
+      background-color: var(--verde-muy-claro);
+      color: var(--cafe-oscuro);
       font-weight: 450;
       line-height: 1.6;
     }
 
     header {
-      background-color: var(--rosa-fuerte);
+      background-color: var(--cafe-oscuro);
       color: var(--blanco);
       padding: 1.5rem;
       text-align: center;
-      border-bottom: 4px solid var(--rosa-suave);
+      border-bottom: 5px solid var(--rosa);
     }
 
     header h1 {
       margin: 0;
-      font-size: 1.6rem;
-      font-weight: 600;
+      font-size: 1.7rem;
+      font-weight: bold;
       letter-spacing: 0.5px;
     }
 
@@ -60,65 +56,49 @@
     .semester {
       background-color: var(--blanco);
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(241, 57, 109, 0.1);
+      box-shadow: 0 8px 20px rgba(59, 26, 1, 0.15);
       overflow: hidden;
-      border: 2px solid var(--cafe-claro);
+      border: 3px solid var(--cafe-medio);
     }
 
     .semester#sem1 {
-      border-top: 6px solid var(--verde-medio);
+      border-top: 8px solid var(--verde-claro);
     }
 
     .semester#sem2 {
-      border-top: 6px solid var(--verde-oscuro);
+      border-top: 8px solid var(--rosa);
     }
 
     .semester h2 {
       margin: 0;
-      padding: 1.2rem;
+      padding: 1.3rem;
       text-align: center;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--negro-suave);
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--cafe-oscuro);
       background-color: var(--gris-claro);
-      border-bottom: 2px solid var(--cafe-claro);
-      position: relative;
-    }
-
-    .semester#sem1 h2::before {
-      content: "🌸";
-      margin-right: 10px;
-      color: var(--rosa-suave);
-    }
-
-    .semester#sem2 h2::before {
-      content: "🌼";
-      margin-right: 10px;
-      color: var(--verde-oscuro);
+      border-bottom: 3px solid var(--cafe-medio);
     }
 
     .subtitle {
-      margin: 1rem 1rem 0.5rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--rosa-fuerte);
-      background-color: var(--gris-claro);
-      padding: 0.6rem 0.8rem;
+      margin: 1.2rem 1rem 0.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--cafe-oscuro);
+      background-color: var(--verde-claro);
+      padding: 0.7rem 0.8rem;
       border-radius: 8px;
       text-align: center;
-      border-left: 4px solid var(--cafe);
-      border-right: 4px solid var(--cafe);
     }
 
     #optativos .subtitle {
-      color: var(--verde-oscuro);
-      border-left-color: var(--verde-medio);
-      border-right-color: var(--verde-medio);
+      background-color: rgba(219, 60, 110, 0.15);
+      color: var(--rosa);
     }
 
     .course {
       padding: 1rem 1.2rem;
-      border-bottom: 1px solid var(--cafe-claro);
+      border-bottom: 2px solid var(--verde-muy-claro);
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
@@ -135,26 +115,25 @@
 
     .course::before {
       content: '';
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      border: 2px solid var(--rosa-suave);
+      border: 2px solid var(--cafe-medio);
       transition: all 0.3s;
       flex-shrink: 0;
     }
 
     .course.completed {
-      background-color: rgba(172, 201, 95, 0.1);
+      background-color: rgba(165, 204, 122, 0.2);
       color: var(--gris-texto);
-      border-left: 4px solid var(--verde-medio);
     }
 
     .course.completed::before {
-      background-color: var(--verde-medio);
-      border-color: var(--verde-medio);
+      background-color: var(--verde-claro);
+      border-color: var(--verde-claro);
       content: '✓';
-      color: white;
-      font-size: 8px;
+      color: var(--cafe-oscuro);
+      font-size: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -169,17 +148,18 @@
     }
 
     .course.locked::before {
-      border-color: var(--cafe);
+      border-color: var(--gris-texto);
       border-style: dotted;
     }
 
     .course:not(.locked):hover {
-      background-color: rgba(253, 96, 129, 0.08);
+      background-color: rgba(219, 60, 110, 0.08);
       transform: translateX(5px);
     }
 
     .course:not(.locked):hover::before {
-      background-color: var(--rosa-suave);
+      background-color: var(--rosa);
+      border-color: var(--rosa);
       transform: scale(1.2);
     }
 
@@ -187,26 +167,32 @@
       text-align: center;
       padding: 1.5rem;
       font-size: 0.9rem;
-      color: var(--negro-suave);
-      background-color: var(--cafe-claro);
+      color: var(--cafe-oscuro);
+      background-color: var(--blanco);
       margin-top: 3rem;
-      border-top: 3px solid var(--cafe);
+      border-top: 3px solid var(--cafe-medio);
     }
 
     .palette-show {
       display: flex;
       justify-content: center;
-      gap: 5px;
-      margin-top: 10px;
+      gap: 8px;
+      margin-top: 15px;
       flex-wrap: wrap;
     }
 
     .palette-color {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       border: 2px solid white;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .color-label {
+      font-size: 0.8rem;
+      margin-top: 5px;
+      display: block;
     }
   </style>
 </head>
@@ -214,14 +200,6 @@
 
 <header>
   <h1>Técnico Especialista en Atención al Cliente y Recepción Hotelera</h1>
-  <div class="palette-show">
-    <div class="palette-color" style="background-color: #f1396d"></div>
-    <div class="palette-color" style="background-color: #fd6081"></div>
-    <div class="palette-color" style="background-color: #f3ffeb"></div>
-    <div class="palette-color" style="background-color: #acc95f"></div>
-    <div class="palette-color" style="background-color: #8f9924"></div>
-    <div class="palette-color" style="background-color: #8b7355"></div>
-  </div>
 </header>
 
 <main class="container">
@@ -245,7 +223,7 @@
     <div class="course" data-id="facturacion2">Facturación y Caja en Alojamientos II</div>
     <div class="course" data-id="seguridad">Seguridad, Higiene y Protección Ambiental en Restauración</div>
 
-    <div class="subtitle">Optativos (Elegir 1)</div>
+    <div class="subtitle">Optativos</div>
     <div id="optativos">
       <div class="course" data-id="cultura_paz">Cultura de Paz</div>
       <div class="course" data-id="identidad_cultural">Identidad Cultural</div>
@@ -258,9 +236,33 @@
 </main>
 
 <footer>
-  <div>Malla Curricular Interactiva • Paleta: Rosita Fresita + Café</div>
-  <div style="font-size: 0.8rem; margin-top: 5px; color: #8b7355;">
-    🌸 Colores: Rosa Fuerte, Rosa Suave, Verde Claro, Verde Medio, Verde Oscuro, Café
+  <div style="font-weight: bold; margin-bottom: 10px;">Malla Curricular Interactiva</div>
+  
+  <div class="palette-show">
+    <div style="text-align: center;">
+      <div class="palette-color" style="background-color: #3b1a01"></div>
+      <span class="color-label">Café Oscuro</span>
+    </div>
+    <div style="text-align: center;">
+      <div class="palette-color" style="background-color: #a5cc7a"></div>
+      <span class="color-label">Verde Claro</span>
+    </div>
+    <div style="text-align: center;">
+      <div class="palette-color" style="background-color: #dcffb6"></div>
+      <span class="color-label">Verde Muy Claro</span>
+    </div>
+    <div style="text-align: center;">
+      <div class="palette-color" style="background-color: #633b1c"></div>
+      <span class="color-label">Café Medio</span>
+    </div>
+    <div style="text-align: center;">
+      <div class="palette-color" style="background-color: #db3c6e"></div>
+      <span class="color-label">Rosa</span>
+    </div>
+  </div>
+  
+  <div style="margin-top: 15px; font-size: 0.8rem; color: #633b1c;">
+    Haz clic en los cursos para marcarlos como completados
   </div>
 </footer>
 
