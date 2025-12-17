@@ -135,6 +135,16 @@
       border-style: dotted;
     }
 
+    .course:not(.locked):hover {
+  background-color: rgba(219, 60, 110, 0.1);
+  transform: translateX(5px);
+}
+
+.course:not(.locked):hover::before {
+  background-color: var(--rosa);
+  transform: scale(1.1);
+}
+
     footer {
       text-align: center;
       padding: 1.5rem;
@@ -143,6 +153,7 @@
       background-color: var(--blanco);
       margin-top: 3rem;
       border-top: 2px solid var(--cafe);
+      line-height: 1.2;
     }
 
     .palette-show {
