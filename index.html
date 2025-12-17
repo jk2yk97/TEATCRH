@@ -231,19 +231,23 @@
   const courses = document.querySelectorAll('.course');
 
   function handleOptativosExclusivos(clickedCourse) {
-    if (!clickedCourse.closest('#optativos')) return;
-    
-    const optativos = document.querySelectorAll('#optativos .course');
-    const clickedId = clickedCourse.getAttribute('data-id');
-    
-    if (clickedCourse.classList.contains('completed')) {
-      optativos.forEach(course => {
-        if (course.getAttribute('data-id') !== clickedId) {
-          course.classList.remove('completed');
-        }
-      });
-    }
+  if (!clickedCourse.closest('#optativos')) return;
+
+  const optativos = document.querySelectorAll('#optativos .course');
+
+  if (clickedCourse.classList.contains('completed')) {
+    optativos.forEach(course => {
+      if (course !== clickedCourse) {
+        course.classList.add('locked');
+        course.classList.remove('completed');
+      }
+    });
+  } else {
+    optativos.forEach(course => {
+      course.classList.remove('locked');
+    });
   }
+}
 
   courses.forEach(course => {
     course.addEventListener('click', () => {
