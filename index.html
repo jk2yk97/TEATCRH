@@ -135,16 +135,6 @@
       border-style: dotted;
     }
 
-    .course:not(.locked):hover {
-      background-color: rgba(219, 60, 110, 0.1);
-      transform: translateX(5px);
-    }
-
-    .course:not(.locked):hover::before {
-      background-color: var(--rosa);
-      transform: scale(1.1);
-    }
-
     footer {
       text-align: center;
       padding: 1.5rem;
@@ -172,6 +162,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -179,7 +170,7 @@
 </header>
 
 <main class="container">
-  
+
   <section class="semester" id="sem1">
     <h2>Semestre I</h2>
     <div class="course" data-id="english1">English A1 Breakthrough</div>
@@ -212,7 +203,14 @@
 </main>
 
 <footer>
-  <div style="font-weight: bold; margin-bottom: 15px; color: var(--rosa);">Malla Curricular Interactiva - TEACRH</div>
+  <div style="font-weight: bold; margin-bottom: 15px; color: var(--rosa);">
+    Malla Curricular Interactiva
+  </div>
+
+
+  <div style="margin-top: 15px; font-size: 0.8rem; color: var(--cafe);">
+    Plan de Formación – Técnico Especialista en Atención al Cliente y Recepción Hotelera
+  </div>
   
   <div class="palette-show">
     <div class="palette-color" style="background-color: #db3c6e"></div>
@@ -221,44 +219,40 @@
     <div class="palette-color" style="background-color: #ffccd5"></div>
     <div class="palette-color" style="background-color: #8b5a2b"></div>
   </div>
-  
-  <div style="margin-top: 15px; font-size: 0.8rem; color: var(--cafe;">
-    Plan de Formación - Técnico Especialista en Atención al Cliente y Recepción Hotelera
-  </div>
 </footer>
 
 <script>
   const courses = document.querySelectorAll('.course');
 
   function handleOptativosExclusivos(clickedCourse) {
-  if (!clickedCourse.closest('#optativos')) return;
+    if (!clickedCourse.closest('#optativos')) return;
 
-  const optativos = document.querySelectorAll('#optativos .course');
+    const optativos = document.querySelectorAll('#optativos .course');
 
-  if (clickedCourse.classList.contains('completed')) {
-    optativos.forEach(course => {
-      if (course !== clickedCourse) {
-        course.classList.add('locked');
-        course.classList.remove('completed');
-      }
-    });
-  } else {
-    optativos.forEach(course => {
-      course.classList.remove('locked');
-    });
+    if (clickedCourse.classList.contains('completed')) {
+      optativos.forEach(course => {
+        if (course !== clickedCourse) {
+          course.classList.add('locked');
+          course.classList.remove('completed');
+        }
+      });
+    } else {
+      optativos.forEach(course => {
+        course.classList.remove('locked');
+      });
+    }
   }
-}
 
   courses.forEach(course => {
     course.addEventListener('click', () => {
       if (course.classList.contains('locked')) return;
-      
+
       course.classList.toggle('completed');
-      
+
       if (course.closest('#optativos')) {
         handleOptativosExclusivos(course);
       }
-      
+
       checkUnlocks();
       saveProgress();
     });
@@ -266,52 +260,46 @@
 
   function checkUnlocks() {
     const sem1Courses = document.querySelectorAll('#sem1 .course');
-    sem1Courses.forEach(course => {
-      course.classList.remove('locked');
-    });
-    
-    const allSem1Completed = Array.from(sem1Courses).every(c => c.classList.contains('completed'));
-    
     const sem2Courses = document.querySelectorAll('#sem2 .course');
     const optativosCourses = document.querySelectorAll('#optativos .course');
     const practicas = document.querySelector('[data-id="practicas"]');
-    
-    if (allSem1Completed) {
-      sem2Courses.forEach(course => {
-        if (course.getAttribute('data-id') !== 'practicas') {
-          course.classList.remove('locked');
-        }
-      });
 
-      const sem2WithoutPracticas = Array.from(sem2Courses).filter(c => 
-        c.getAttribute('data-id') !== 'practicas' && 
-        !c.closest('#optativos')
-      );
-      
-      const optativosArray = Array.from(optativosCourses);
-      const atLeastOneOptativoSelected = optativosArray.some(c => c.classList.contains('completed'));
-      
-      const allSem2Completed = sem2WithoutPracticas.every(c => c.classList.contains('completed')) && 
-                               atLeastOneOptativoSelected;
-      
-      if (allSem2Completed) {
-        practicas.classList.remove('locked');
-      } else {
-        practicas.classList.add('locked');
-        practicas.classList.remove('completed');
-      }
-      
-    } else {
+    const allSem1Completed = Array.from(sem1Courses)
+      .every(c => c.classList.contains('completed'));
+
+    if (!allSem1Completed) {
       sem2Courses.forEach(course => {
         course.classList.add('locked');
         course.classList.remove('completed');
       });
+      optativosCourses.forEach(c => c.classList.remove('completed'));
+      return;
     }
-    
-    if (!allSem1Completed) {
-      optativosCourses.forEach(course => {
-        course.classList.remove('completed');
-      });
+
+    sem2Courses.forEach(course => {
+      if (
+        course.getAttribute('data-id') !== 'practicas' &&
+        !course.closest('#optativos')
+      ) {
+        course.classList.remove('locked');
+      }
+    });
+
+    const sem2Obligatorias = Array.from(sem2Courses).filter(
+      c => c.getAttribute('data-id') !== 'practicas' && !c.closest('#optativos')
+    );
+
+    const optativoSeleccionado = Array.from(optativosCourses)
+      .some(c => c.classList.contains('completed'));
+
+    if (
+      sem2Obligatorias.every(c => c.classList.contains('completed')) &&
+      optativoSeleccionado
+    ) {
+      practicas.classList.remove('locked');
+    } else {
+      practicas.classList.add('locked');
+      practicas.classList.remove('completed');
     }
   }
 
@@ -329,16 +317,19 @@
       checkUnlocks();
       return;
     }
-    
+
     document.querySelectorAll('.course').forEach(c => {
       const id = c.getAttribute('data-id');
       if (saved[id]) {
         c.classList.add('completed');
-      } else {
-        c.classList.remove('completed');
       }
     });
-    
+
+    const optativoActivo = document.querySelector('#optativos .completed');
+    if (optativoActivo) {
+      handleOptativosExclusivos(optativoActivo);
+    }
+
     checkUnlocks();
   }
 
