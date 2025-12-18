@@ -72,7 +72,6 @@
       margin: 0 auto;
     }
 
-    /* Efecto hover en las cards - IGUAL QUE LA LICENCIATURA */
     .semester {
       background-color: var(--card-bg);
       border-radius: 18px;
@@ -108,8 +107,7 @@
       border-radius: 8px;
       text-align: center;
     }
-
-    /* Efectos hover en los cursos - MEJORADOS COMO LA LICENCIATURA */
+    
     .course {
       padding: 1.2rem 1.2rem;
       border-bottom: 1px solid var(--primary-muted);
@@ -174,7 +172,6 @@
       color: var(--gray-light);
     }
 
-    /* EFECTO HOVER IGUAL QUE LA LICENCIATURA */
     .course:not(.locked):hover {
       background-color: var(--primary-muted);
       transform: translateX(6px);
@@ -356,18 +353,25 @@
     const sem2Courses = document.querySelectorAll('#sem2 .course');
     const optativosCourses = document.querySelectorAll('#optativos .course');
     const practicas = document.querySelector('[data-id="practicas"]');
-
     const allSem1Completed = Array.from(sem1Courses)
       .every(c => c.classList.contains('completed'));
 
+
     if (!allSem1Completed) {
       sem2Courses.forEach(course => {
-        course.classList.add('locked');
+        if (!course.classList.contains('locked')) {
+          course.classList.add('locked');
+        }
         course.classList.remove('completed');
       });
-      optativosCourses.forEach(c => c.classList.remove('completed'));
+
+      optativosCourses.forEach(c => {
+        c.classList.remove('completed');
+        c.classList.remove('locked');
+      });
       return;
     }
+
 
     sem2Courses.forEach(course => {
       if (
@@ -378,6 +382,10 @@
       }
     });
 
+    optativosCourses.forEach(course => {
+      course.classList.remove('locked');
+    });
+
     const sem2Obligatorias = Array.from(sem2Courses).filter(
       c => c.getAttribute('data-id') !== 'practicas' && !c.closest('#optativos')
     );
@@ -385,10 +393,9 @@
     const optativoSeleccionado = Array.from(optativosCourses)
       .some(c => c.classList.contains('completed'));
 
-    if (
-      sem2Obligatorias.every(c => c.classList.contains('completed')) &&
-      optativoSeleccionado
-    ) {
+    const allObligatoriasCompleted = sem2Obligatorias.every(c => c.classList.contains('completed'));
+    
+    if (allObligatoriasCompleted && optativoSeleccionado) {
       practicas.classList.remove('locked');
     } else {
       practicas.classList.add('locked');
@@ -426,7 +433,9 @@
     checkUnlocks();
   }
 
-  loadProgress();
+  document.addEventListener('DOMContentLoaded', () => {
+    loadProgress();
+  });
 </script>
 
 </body>
